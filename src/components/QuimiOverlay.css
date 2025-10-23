@@ -1,0 +1,110 @@
+/* QuimiOverlay.css */
+
+/* Contenedor base */
+.quimi-overlay {
+  position: fixed;
+  bottom: 20px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Posición derecha (quiz) */
+.quimi-derecha {
+  right: 50px;
+  left: auto;
+}
+
+/* Posición izquierda (mezcla) */
+.quimi-izquierda {
+  left: 50px;
+  right: auto;
+}
+
+.quimi-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+/* Alineación para posición derecha */
+.quimi-contenedor.quimi-derecha {
+  align-items: flex-end;
+}
+
+/* Alineación para posición izquierda */
+.quimi-contenedor.quimi-izquierda {
+  align-items: flex-start;
+}
+
+.quimi-imagen {
+  width: 500px;
+  height: 500px;
+  object-fit: contain;
+}
+
+.quimi-burbuja {
+  max-width: 250px;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: aparecerBurbuja 0.5s ease-out;
+  margin-bottom: -40px;
+}
+
+/* Burbuja para posición derecha */
+.burbuja-derecha {
+  margin-right: 50px;
+}
+
+.burbuja-derecha::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #f8f9fa transparent transparent;
+}
+
+/* Burbuja para posición izquierda */
+.burbuja-izquierda {
+  margin-left: 50px;
+}
+
+.burbuja-izquierda::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 20px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #f8f9fa transparent transparent;
+}
+
+.quimi-burbuja p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+@keyframes aparecerBurbuja {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive - OCULTAR en tablets y móviles */
+@media (max-width: 1500px) {
+  .quimi-overlay {
+    display: none;
+  }
+}

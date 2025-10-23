@@ -1,0 +1,201 @@
+/* Resultados.css */
+
+/* Fondo semitransparente para modal */
+.resultado-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Ventana central */
+.resultado-modal {
+  position: relative;
+  background: transparent !important;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  animation: aparecer 0.4s ease-out;
+  overflow: hidden;
+}
+
+/* Contenido */
+.resultado-contenido {
+  position: relative;
+  z-index: 2;
+}
+
+.resultado-contenido h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: #1e293b; /* igual que títulos principales */
+}
+
+.puntuacion {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.puntuacion-numero {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2563eb; /* azul consistente con botones */
+  margin: 0.5rem 0;
+}
+
+/* Botones */
+.botones {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-reiniciar, .btn-volver {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-reiniciar {
+  background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+  color: white;
+}
+
+.btn-volver {
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #dee2e6;
+}
+
+.btn-reiniciar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver:hover {
+  background: #e9ecef;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Confeti animado */
+.confeti-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
+
+.confeti {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  opacity: 0.8;
+  animation: caerConfeti 5s linear forwards;
+}
+
+@keyframes caerConfeti {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(500px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Grietas */
+.grietas-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grieta {
+  position: absolute;
+  height: 3px;
+  width: 100px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6), transparent);
+  animation: agrietar 1.5s forwards;
+}
+
+@keyframes agrietar {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100px;
+    opacity: 0.7;
+  }
+}
+
+/* Animaciones */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .resultado-modal {
+    width: 90%;
+    padding: 1.5rem;
+  }
+  
+  .resultado-contenido h2 {
+    font-size: 2rem;
+  }
+  
+  .puntuacion-numero {
+    font-size: 2rem;
+  }
+  
+  .botones {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-reiniciar, .btn-volver {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+.emoji-grande {
+  font-size: 48px;
+  line-height: 1; /* para que no haya espacios extra */
+}

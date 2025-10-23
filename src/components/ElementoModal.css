@@ -1,0 +1,691 @@
+/* Estilos base del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Espacio en móviles */
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  width: 70%;
+  max-width: 1100px;
+  height: 70vh; /* 80% del alto de la pantalla */
+  max-height: 800px; /* Límite máximo */
+  padding: 25px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+  position: relative;
+  overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-close-button:hover {
+  color: #333;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Título principal del nombre del elemento */
+.modal-element-name {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #003566;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
+}
+
+/* Categoría del elemento (badge) */
+.modal-category-tag {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #888;
+  text-transform: capitalize;
+  margin-top: 10px;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+
+
+/* Subtítulo: Uso, etc. */
+.modal-uso-titulo {
+  margin-top: 30px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  border-left: 4px solid #49a195;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-body-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* 🔹 alinea contenido arriba */
+  width: 100%;
+  height: 500px; /* si quieres mantener altura fija */
+}
+
+
+/* TARJETA DEL ELEMENTO - ESTILOS CORREGIDOS */
+.modal-element-card {
+  flex: 1;
+  min-width: 300px;
+  padding: 25px;
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+/* CONTENIDO DE LA TARJETA CON MÁRGENES CONSISTENTES */
+.modal-element-card-inner {
+  padding-left: 6px; /* Margen izquierdo consistente */
+  padding-right: 6px; /* Margen derecho consistente */
+}
+
+/* PRIMERA FILA - ALINEACIÓN CORREGIDA */
+.modal-first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  width: 100%;
+  padding-left: 6px; /* Añadido para alineación */
+}
+
+/* CONTENEDORES DE DATOS */
+.atomic-mass-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;  /* Alineación vertical al top */
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.atomic-number-container,
+.electronegativity-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.atomic-mass-label,
+.atomic-number-label,
+.electronegativity-label {
+  font-size: 0.8rem;
+  color: white;
+  margin-bottom: 3px;
+}
+
+.atomic-mass-value {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.atomic-number-container {
+  width: 80px;
+  height: 80px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;  /* Alineación superior */
+  align-items: center;          /* Centrado horizontal */
+  margin: 0 10px;
+  position: relative;
+}
+
+
+.atomic-number-value {
+  font-size: 2.8rem;           /* Más grande */
+  font-weight: 800;            /* Extra negrita */
+  color: white;                /* Texto blanco */
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.4),  /* Sombra principal */
+    0 0 6px rgba(255, 255, 255, 0.2); /* Resplandor suave */
+}
+
+
+
+
+
+/* Efecto interactivo opcional */
+.atomic-number-container:hover .atomic-number-value {
+  transform: scale(1.05);
+}
+
+/* Segunda fila */
+.modal-second-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.empty-column {
+  flex: 1;
+}
+
+.electronegativity-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;  /* Alineación horizontal hacia la derecha */
+  justify-content: flex-start;
+  padding: 8px 12px;
+  text-align: right;
+}
+
+
+.electronegativity-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* SÍMBOLO DEL ELEMENTO - ALINEACIÓN CORREGIDA */
+.element-symbol {
+  font-size: 10rem !important;
+  font-weight: bold;
+  text-align: left;
+  text-shadow: 
+    2px 2px 8px rgba(0, 0, 0, 0.6),
+    0 0 6px rgba(255, 255, 255, 0.25);
+  color: white;
+  line-height: 0.8;
+  margin: 0 0;
+  padding-left: 6px; /* Alineado con el resto del contenido */
+  max-width: 100%;
+}
+
+/* NOMBRE DEL ELEMENTO - ALINEACIÓN CORREGIDA */
+.element-name {
+  font-size: 1.9rem;
+  font-weight: bold;
+  text-align: left;
+  text-shadow: 
+    2px 2px 8px rgba(0, 0, 0, 0.6),
+    0 0 6px rgba(255, 255, 255, 0.25);
+  color: white;
+  margin: 0.5rem 0;
+  padding-left: 6px; /* Alineado con el resto del contenido */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* CONFIGURACIÓN ELECTRÓNICA - ALINEACIÓN CORREGIDA */
+.electron-configuration {
+  font-size: 1rem;
+  
+  text-align: left;
+  margin: 10px 0 10px 6px; /* Margen izquierdo de 15px */
+  color: #333;
+  word-break: break-word;
+  padding: 12px 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Courier New', monospace;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: calc(100% - 30px); /* Ajuste para padding */
+}
+
+/* ESTADO DE OXIDACIÓN - ALINEACIÓN CORREGIDA */
+.oxidation-states {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  color: white;
+  padding-left: 6px; /* Alineado con el resto del contenido */
+  margin: 10px 0;
+}
+
+
+/* Espacio vacío */
+.modal-empty-space {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Colores por categoría */
+.modal-alkali-metal { background-color: #D85097; }        /* Metales alcalinos */
+.modal-alkaline-earth-metal { background-color: #F3921A; }/* Metales alcalinotérreos */
+.modal-transition-metal { background-color: #FCBF0A; }    /* Metales transicionales */
+.modal-otros-metales { background-color: #89BD24; }       /* Metales postransicionales */
+.modal-metalloid { background-color: #2AB4E9; }           /* Metaloides */
+.modal-non-metal { background-color: #098136; }           /* No metales reactivos */
+.modal-halogen { background-color: #292E6A; }             /* Halógenos */
+.modal-noble-gas { background-color: #664595; }           /* Gases nobles */
+.modal-lantanidos { background-color: #A675B1; }          /* Lantánidos */
+.modal-actinidos { background-color: #9A9999; }           /* Actínidos */
+.modal-desconocido { background-color: #292999; }         /* Elementos desconocidos */
+
+
+
+.modal-content {
+  width: 750px;            /* Tamaño fijo (ajustable) */
+  max-height: 90vh;        /* Altura máxima del viewport */
+  overflow-y: auto;        /* Scroll vertical si hay contenido extra */
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px; /* Ancho del scroll */
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Fondo del track del scroll */
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #ffffff; /* Color blanco del scroll */
+  border-radius: 10px;
+  border: 2px solid #ccc; /* Bordes grises para que se note */
+}
+
+/* Firefox */
+.modal-content {
+  scrollbar-color: white #f0f0f0; /* thumb color, track color */
+  scrollbar-width: thin;
+}
+
+
+.modal-info-section {
+  flex: 1;
+  padding: 20px;
+  overflow: visible;          /* Sin scroll */
+  max-height: none;           /* Se adapta al contenido */
+  text-align: left;
+}
+
+
+.modal-summary {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.modal-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #444;
+}
+
+.modal-info-list li {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+
+
+.modal-uso-texto {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.modal-video {
+  margin-top: 10px;
+  width: 100%;
+}
+
+
+.modal-image-container {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.modal-element-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* o cover si quieres recorte */
+}
+
+.modal-info-section {
+  width: 60%;
+  padding: 20px;
+}
+
+.modal-body-container.imagen {
+  height: 500px; /* o lo que necesites */
+}
+
+/* Estilos base del modal - REVISADO */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Espacio en móviles */
+}
+
+.modal-content {
+  background-color: #e0f2fe;
+  border-radius: 12px;
+  width: 90%; /* Más flexible */
+  max-width: 1100px;
+  height: auto; /* Altura automática */
+  max-height: 90vh; /* Máximo 90% del viewport */
+  padding: 25px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+  position: relative;
+  overflow-y: auto; /* Scroll interno */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 400px; /* Altura mínima */
+}
+
+/* Centrar imagen en vista general */
+.modal-image-container {
+  width: 40%;
+  display: flex;
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  padding: 20px;
+}
+
+.modal-element-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Centrar contenido en vista general */
+.modal-body-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Cambiado de flex-start a center */
+  width: 100%;
+  min-height: 400px;
+}
+
+/* ========== MEDIA QUERIES MEJORADAS - APROVECHAR ESPACIO ========== */
+
+/* Para tablets (900px o menos) */
+@media (max-width: 900px) {
+  .modal-content {
+    width: 95%;
+    height: 95vh;
+    max-height: 95vh;
+    padding: 20px;
+  }
+  
+  .modal-body-container {
+    flex-direction: column;
+    height: 100%;
+    min-height: auto;
+    gap: 25px;
+    justify-content: flex-start; /* Empieza desde arriba */
+  }
+  
+  .modal-image-container {
+    width: 100%;
+    padding: 0;
+    order: 1;
+    flex: 0 0 35%; /* Ocupa 35% del alto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-info-section {
+    width: 100%;
+    order: 2;
+    padding: 0;
+    text-align: left;
+    flex: 1; /* Ocupa el resto del espacio */
+    overflow-y: auto;
+  }
+  
+  .modal-element-image {
+    max-height: 220px;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  /* Aumentar tamaño de texto en tablet */
+  .modal-element-name {
+    font-size: 2.8rem;
+  }
+  
+  .modal-summary {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .modal-info-list {
+    font-size: 1rem;
+  }
+  
+  .modal-info-list li {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .modal-uso-titulo {
+    font-size: 2.2rem;
+    margin-top: 25px;
+  }
+  
+  .modal-uso-texto {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Para móviles (480px o menos) */
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 10px;
+  }
+  
+  .modal-content {
+    width: 98%;
+    height: 98vh;
+    max-height: 98vh;
+    padding: 15px;
+  }
+  
+  .modal-body-container {
+    gap: 20px;
+  }
+  
+  .modal-image-container {
+    flex: 0 0 30%; /* Un poco menos de espacio para la imagen */
+  }
+  
+  .modal-element-image {
+    max-height: 180px;
+  }
+  
+  /* Texto más grande en móviles */
+  .modal-element-name {
+    font-size: 2.4rem;
+  }
+  
+  .modal-category-tag {
+    font-size: 1.1rem;
+    padding: 10px 18px;
+  }
+  
+  .modal-summary {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  
+  .modal-info-list {
+    font-size: 1.05rem;
+  }
+  
+  .modal-info-list li {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+    padding: 10px 0;
+  }
+  
+  .modal-uso-titulo {
+    font-size: 2rem;
+    margin-top: 30px;
+  }
+  
+  .modal-uso-texto {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  
+  /* Mejorar espaciado general */
+  .modal-info-section {
+    padding: 0 5px;
+  }
+}
+
+/* Para móviles muy pequeños (360px o menos) */
+@media (max-width: 360px) {
+  .modal-body-container {
+    gap: 15px;
+  }
+  
+  .modal-image-container {
+    flex: 0 0 25%; /* Menos espacio para imagen, más para texto */
+  }
+  
+  .modal-element-image {
+    max-height: 150px;
+  }
+  
+  .modal-element-name {
+    font-size: 2.2rem;
+  }
+  
+  .modal-summary {
+    font-size: 1rem;
+  }
+  
+  .modal-info-list li {
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+  }
+  
+  /* Ajustar tarjeta del elemento para móviles pequeños */
+  .modal-element-card {
+    padding: 20px 15px;
+  }
+  
+  .element-symbol {
+    font-size: 8rem !important;
+  }
+  
+  .element-name {
+    font-size: 1.7rem;
+  }
+  
+  .atomic-mass-value {
+    font-size: 2rem;
+  }
+  
+  .atomic-number-value {
+    font-size: 2.4rem;
+  }
+}
+
+/* Para tablets en orientación horizontal */
+@media (max-width: 900px) and (max-height: 600px) {
+  .modal-image-container {
+    flex: 0 0 25%; /* Menos espacio para imagen en tablets horizontales */
+  }
+  
+  .modal-element-image {
+    max-height: 150px;
+  }
+  
+  .modal-body-container {
+    gap: 15px;
+  }
+}
+
+/* Para pantallas muy altas */
+@media (max-width: 900px) and (min-height: 1000px) {
+  .modal-image-container {
+    flex: 0 0 25%; /* Menos espacio para imagen en pantallas altas */
+  }
+  
+  .modal-element-image {
+    max-height: 250px;
+  }
+  
+  /* Texto aún más grande en pantallas altas */
+  .modal-element-name {
+    font-size: 3rem;
+  }
+  
+  .modal-summary {
+    font-size: 1.2rem;
+  }
+  
+  .modal-info-list {
+    font-size: 1.1rem;
+  }
+}

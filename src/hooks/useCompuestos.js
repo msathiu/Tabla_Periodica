@@ -1,0 +1,2231 @@
+import { useState, useEffect } from 'react';
+
+const useCompuestos = () => {
+  const [compuestos, setCompuestos] = useState({
+    binarios: {},
+    ternarios: {},
+    cuaternarios: {}
+  });
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const cargarCompuestos = async () => {
+      try {
+        setCargando(true);
+        setError(null);
+        
+        // Para desarrollo: desde public/data/
+        // Para producción: ajusta la ruta según tu estructura
+        const response = await fetch('/data/compuestos.json');
+        
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: No se pudieron cargar los compuestos`);
+        }
+        
+        const datos = await response.json();
+        setCompuestos(datos);
+      } catch (err) {
+        console.error('Error cargando compuestos:', err);
+        setError(err.message);
+        // Datos de respaldo en caso de error
+        setCompuestos({
+            
+        // Binary compounds (2 elements)
+        binarios: {
+            'Hidrógeno,Oxígeno': { 
+            nombre: 'Agua', 
+            formula: 'H₂O',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto esencial para la vida. Se forma cuando el hidrógeno se combina con oxígeno.'
+            },
+            'Sodio,Cloro': { 
+            nombre: 'Cloruro de sodio', 
+            formula: 'NaCl',
+            tipo: 'Sal',
+            explicacion: 'Conocida como sal de mesa. Compuesto iónico formado por iones sodio y cloruro.'
+            },
+            'Hidrógeno,Cloro': { 
+            nombre: 'Cloruro de hidrógeno', 
+            formula: 'HCl',
+            tipo: 'Ácido',
+            explicacion: 'En solución acuosa forma ácido clorhídrico. Gas incoloro con un olor picante.'
+            },
+            'Carbono,Oxígeno': { 
+            nombre: 'Dióxido de carbono', 
+            formula: 'CO₂',
+            tipo: 'Óxido',
+            explicacion: 'Gas esencial para la fotosíntesis. Producto de la respiración y combustión.'
+            },
+            'Hidrógeno,Nitrógeno': { 
+            nombre: 'Amoníaco', 
+            formula: 'NH₃',
+            tipo: 'Base',
+            explicacion: 'Compuesto importante en fertilizantes. Gas con un característico olor penetrante.'
+            },
+            'Calcio,Oxígeno': { 
+            nombre: 'Óxido de calcio', 
+            formula: 'CaO',
+            tipo: 'Óxido básico',
+            explicacion: 'Conocido como cal viva. Se usa en construcción y en la industria siderúrgica.'
+            },
+            'Aluminio,Oxígeno': { 
+            nombre: 'Óxido de aluminio', 
+            formula: 'Al₂O₃',
+            tipo: 'Óxido anfótero',
+            explicacion: 'Presente en minerales como el corindón. Muy duro y resistente.'
+            },
+            'Hierro,Oxígeno': { 
+            nombre: 'Óxido de hierro (III)', 
+            formula: 'Fe₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Conocido como hematita. Es el principal mineral de hierro.'
+            },
+            'Cobre,Oxígeno': { 
+            nombre: 'Óxido de cobre (II)', 
+            formula: 'CuO',
+            tipo: 'Óxido',
+            explicacion: 'Polvo negro usado en cerámica y como pigmento.'
+            },
+            'Zinc,Oxígeno': { 
+            nombre: 'Óxido de zinc', 
+            formula: 'ZnO',
+            tipo: 'Óxido anfótero',
+            explicacion: 'Usado en cremas protectoras solares y en la industria del caucho.'
+            },
+            'Magnesio,Oxígeno': { 
+            nombre: 'Óxido de magnesio', 
+            formula: 'MgO',
+            tipo: 'Óxido básico',
+            explicacion: 'Conocido como magnesia. Se usa como antiácido y refractario.'
+            },
+            'Potasio,Cloro': { 
+            nombre: 'Cloruro de potasio', 
+            formula: 'KCl',
+            tipo: 'Sal',
+            explicacion: 'Importante fertilizante. También se usa en la industria alimentaria.'
+            },
+            'Calcio,Cloro': { 
+            nombre: 'Cloruro de calcio', 
+            formula: 'CaCl₂',
+            tipo: 'Sal',
+            explicacion: 'Usado como desecante y para derretir hielo en carreteras.'
+            },
+            'Plata,Cloro': { 
+            nombre: 'Cloruro de plata', 
+            formula: 'AgCl',
+            tipo: 'Sal',
+            explicacion: 'Compuesto fotosensible usado en fotografía.'
+            },
+            'Sodio,Yodo': { 
+            nombre: 'Yoduro de sodio', 
+            formula: 'NaI',
+            tipo: 'Sal',
+            explicacion: 'Usado en medicina como fuente de yodo y en fotografía.'
+            },
+            'Hidrógeno,Flúor': { 
+            nombre: 'Fluoruro de hidrógeno', 
+            formula: 'HF',
+            tipo: 'Ácido',
+            explicacion: 'Ácido débil pero muy corrosivo. Usado para grabar vidrio.'
+            },
+            'Hidrógeno,Bromo': { 
+            nombre: 'Bromuro de hidrógeno', 
+            formula: 'HBr',
+            tipo: 'Ácido',
+            explicacion: 'Gas incoloro que forma ácido bromhídrico en agua.'
+            },
+            'Carbono,Hidrógeno': { 
+            nombre: 'Metano', 
+            formula: 'CH₄',
+            tipo: 'Hidrocarburo',
+            explicacion: 'Principal componente del gas natural. Gas de efecto invernadero.'
+            },
+            'Azufre,Oxígeno': { 
+            nombre: 'Dióxido de azufre', 
+            formula: 'SO₂',
+            tipo: 'Óxido ácido',
+            explicacion: 'Gas contaminante que contribuye a la lluvia ácida.'
+            },
+            'Nitrógeno,Oxígeno': { 
+            nombre: 'Monóxido de nitrógeno', 
+            formula: 'NO',
+            tipo: 'Óxido',
+            explicacion: 'Mensajero químico en el cuerpo humano. Contaminante atmosférico.'
+            },
+            // NUEVAS COMBINACIONES BINARIAS
+            'Litio,Flúor': { 
+            nombre: 'Fluoruro de litio', 
+            formula: 'LiF',
+            tipo: 'Sal',
+            explicacion: 'Usado en cerámica y como fundente en soldadura.'
+            },
+            'Berilio,Oxígeno': { 
+            nombre: 'Óxido de berilio', 
+            formula: 'BeO',
+            tipo: 'Óxido',
+            explicacion: 'Excelente conductor térmico. Usado en electrónica y cerámica.'
+            },
+            'Boro,Oxígeno': { 
+            nombre: 'Óxido de boro', 
+            formula: 'B₂O₃',
+            tipo: 'Óxido ácido',
+            explicacion: 'Componente principal del vidrio de borosilicato (pirex).'
+            },
+            'Carbono,Nitrógeno': { 
+            nombre: 'Cianógeno', 
+            formula: '(CN)₂',
+            tipo: 'Gas tóxico',
+            explicacion: 'Gas altamente tóxico usado en síntesis orgánica.'
+            },
+            'Nitrógeno,Hidrógeno': { 
+            nombre: 'Hidracina', 
+            formula: 'N₂H₄',
+            tipo: 'Base',
+            explicacion: 'Usada como combustible para cohetes y en síntesis química.'
+            },
+            'Oxígeno,Flúor': { 
+            nombre: 'Fluoruro de oxígeno', 
+            formula: 'OF₂',
+            tipo: 'Fluoruro',
+            explicacion: 'Gas oxidante fuerte usado en combustibles para cohetes.'
+            },
+            'Flúor,Cloro': { 
+            nombre: 'Cloruro de flúor', 
+            formula: 'ClF',
+            tipo: 'Interhalógeno',
+            explicacion: 'Gas reactivo usado en la producción de hexafluoruro de uranio.'
+            },
+            'Sodio,Bromo': { 
+            nombre: 'Bromuro de sodio', 
+            formula: 'NaBr',
+            tipo: 'Sal',
+            explicacion: 'Usado en fotografía y como sedante en medicina.'
+            },
+            'Magnesio,Cloro': { 
+            nombre: 'Cloruro de magnesio', 
+            formula: 'MgCl₂',
+            tipo: 'Sal',
+            explicacion: 'Usado en la producción de magnesio metálico y como suplemento.'
+            },
+            'Aluminio,Cloro': { 
+            nombre: 'Cloruro de aluminio', 
+            formula: 'AlCl₃',
+            tipo: 'Sal',
+            explicacion: 'Catalizador importante en reacciones orgánicas (alquilación de Friedel-Crafts).'
+            },
+            'Silicio,Oxígeno': { 
+            nombre: 'Dióxido de silicio', 
+            formula: 'SiO₂',
+            tipo: 'Óxido',
+            explicacion: 'Componente principal de la arena y el cuarzo.'
+            },
+            'Fósforo,Oxígeno': { 
+            nombre: 'Pentóxido de fósforo', 
+            formula: 'P₂O₅',
+            tipo: 'Óxido ácido',
+            explicacion: 'Desecante poderoso usado en síntesis orgánica.'
+            },
+            'Azufre,Hidrógeno': { 
+            nombre: 'Sulfuro de hidrógeno', 
+            formula: 'H₂S',
+            tipo: 'Gas tóxico',
+            explicacion: 'Gas con olor a huevos podridos. Extremadamente tóxico.'
+            },
+            'Cloro,Oxígeno': { 
+            nombre: 'Dióxido de cloro', 
+            formula: 'ClO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado como blanqueador y desinfectante de agua.'
+            },
+            'Potasio,Bromo': { 
+            nombre: 'Bromuro de potasio', 
+            formula: 'KBr',
+            tipo: 'Sal',
+            explicacion: 'Usado en fotografía y como anticonvulsivo en medicina.'
+            },
+            'Calcio,Bromo': { 
+            nombre: 'Bromuro de calcio', 
+            formula: 'CaBr₂',
+            tipo: 'Sal',
+            explicacion: 'Usado en fluidos de perforación petrolera.'
+            },
+            'Escandio,Oxígeno': { 
+            nombre: 'Óxido de escandio', 
+            formula: 'Sc₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de lámparas de vapor de mercurio.'
+            },
+            'Titanio,Oxígeno': { 
+            nombre: 'Dióxido de titanio', 
+            formula: 'TiO₂',
+            tipo: 'Óxido',
+            explicacion: 'Pigmento blanco usado en pinturas, plásticos y protectores solares.'
+            },
+            'Vanadio,Oxígeno': { 
+            nombre: 'Pentóxido de vanadio', 
+            formula: 'V₂O₅',
+            tipo: 'Óxido',
+            explicacion: 'Catalizador importante en la producción de ácido sulfúrico.'
+            },
+            'Cromo,Oxígeno': { 
+            nombre: 'Óxido de cromo (III)', 
+            formula: 'Cr₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Pigmento verde usado en pinturas y cerámica.'
+            },
+            'Manganeso,Oxígeno': { 
+            nombre: 'Dióxido de manganeso', 
+            formula: 'MnO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en baterías secas y como catalizador.'
+            },
+            'Hierro,Cloro': { 
+            nombre: 'Cloruro de hierro (III)', 
+            formula: 'FeCl₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en el tratamiento de aguas y como catalizador.'
+            },
+            'Cobalto,Oxígeno': { 
+            nombre: 'Óxido de cobalto (II)', 
+            formula: 'CoO',
+            tipo: 'Óxido',
+            explicacion: 'Pigmento azul usado en vidrio y cerámica.'
+            },
+            'Níquel,Oxígeno': { 
+            nombre: 'Óxido de níquel (II)', 
+            formula: 'NiO',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de aleaciones y cerámica.'
+            },
+            'Cobre,Cloro': { 
+            nombre: 'Cloruro de cobre (II)', 
+            formula: 'CuCl₂',
+            tipo: 'Sal',
+            explicacion: 'Usado como catalizador y en el tratamiento de madera.'
+            },
+            'Zinc,Cloro': { 
+            nombre: 'Cloruro de zinc', 
+            formula: 'ZnCl₂',
+            tipo: 'Sal',
+            explicacion: 'Usado como desodorante y en la industria del papel.'
+            },
+            'Galio,Oxígeno': { 
+            nombre: 'Óxido de galio (III)', 
+            formula: 'Ga₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Semiconductor usado en electrónica y optoelectrónica.'
+            },
+            'Germanio,Oxígeno': { 
+            nombre: 'Dióxido de germanio', 
+            formula: 'GeO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en lentes de infrarrojos y como catalizador.'
+            },
+            'Arsénico,Oxígeno': { 
+            nombre: 'Trióxido de arsénico', 
+            formula: 'As₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Veneno poderoso, también usado en medicina y vidrio.'
+            },
+            'Selenio,Oxígeno': { 
+            nombre: 'Dióxido de selenio', 
+            formula: 'SeO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de vidrio rojo y como reactivo.'
+            },
+            'Bromo,Cloro': { 
+            nombre: 'Cloruro de bromo', 
+            formula: 'BrCl',
+            tipo: 'Interhalógeno',
+            explicacion: 'Reactivo usado en síntesis orgánica.'
+            },
+            'Kriptón,Flúor': { 
+            nombre: 'Fluoruro de kriptón', 
+            formula: 'KrF₂',
+            tipo: 'Fluoruro',
+            explicacion: 'Uno de los pocos compuestos del kriptón. Oxidante muy fuerte.'
+            },
+            'Rubidio,Cloro': { 
+            nombre: 'Cloruro de rubidio', 
+            formula: 'RbCl',
+            tipo: 'Sal',
+            explicacion: 'Usado en investigación bioquímica.'
+            },
+            'Estroncio,Oxígeno': { 
+            nombre: 'Óxido de estroncio', 
+            formula: 'SrO',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de cerámica y vidrio.'
+            },
+            'Itrio,Oxígeno': { 
+            nombre: 'Óxido de itrio', 
+            formula: 'Y₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en fósforos para televisores y superconductores.'
+            },
+            'Circonio,Oxígeno': { 
+            nombre: 'Dióxido de circonio', 
+            formula: 'ZrO₂',
+            tipo: 'Óxido',
+            explicacion: 'Material cerámico muy resistente usado en prótesis dentales.'
+            },
+            'Niobio,Oxígeno': { 
+            nombre: 'Pentóxido de niobio', 
+            formula: 'Nb₂O₅',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de lentes y catalizadores.'
+            },
+            'Molibdeno,Oxígeno': { 
+            nombre: 'Trióxido de molibdeno', 
+            formula: 'MoO₃',
+            tipo: 'Óxido',
+            explicacion: 'Catalizador en la industria petroquímica.'
+            },
+            'Tecnecio,Oxígeno': { 
+            nombre: 'Óxido de tecnecio (VII)', 
+            formula: 'Tc₂O₇',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo usado en medicina nuclear.'
+            },
+            'Rutenio,Oxígeno': { 
+            nombre: 'Óxido de rutenio (IV)', 
+            formula: 'RuO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en electrodos y como catalizador.'
+            },
+            'Rodio,Oxígeno': { 
+            nombre: 'Óxido de rodio (III)', 
+            formula: 'Rh₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Catalizador en procesos industriales.'
+            },
+            'Paladio,Cloro': { 
+            nombre: 'Cloruro de paladio (II)', 
+            formula: 'PdCl₂',
+            tipo: 'Sal',
+            explicacion: 'Catalizador importante en síntesis orgánica.'
+            },
+            'Plata,Oxígeno': { 
+            nombre: 'Óxido de plata', 
+            formula: 'Ag₂O',
+            tipo: 'Óxido',
+            explicacion: 'Usado en baterías y como reactivo en laboratorio.'
+            },
+            'Cadmio,Oxígeno': { 
+            nombre: 'Óxido de cadmio', 
+            formula: 'CdO',
+            tipo: 'Óxido',
+            explicacion: 'Usado en baterías y pigmentos.'
+            },
+            'Indio,Oxígeno': { 
+            nombre: 'Óxido de indio (III)', 
+            formula: 'In₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Componente de pantallas táctiles y LEDs.'
+            },
+            'Estaño,Oxígeno': { 
+            nombre: 'Óxido de estaño (IV)', 
+            formula: 'SnO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en sensores de gas y como opacante en vidrio.'
+            },
+            'Antimonio,Oxígeno': { 
+            nombre: 'Trióxido de antimonio', 
+            formula: 'Sb₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Retardante de llama usado en plásticos y textiles.'
+            },
+            'Telurio,Oxígeno': { 
+            nombre: 'Dióxido de telurio', 
+            formula: 'TeO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de vidrio óptico.'
+            },
+            'Yodo,Cloro': { 
+            nombre: 'Cloruro de yodo', 
+            formula: 'ICl',
+            tipo: 'Interhalógeno',
+            explicacion: 'Reactivo usado en síntesis orgánica.'
+            },
+            'Xenón,Flúor': { 
+            nombre: 'Tetrafluoruro de xenón', 
+            formula: 'XeF₄',
+            tipo: 'Fluoruro',
+            explicacion: 'Uno de los primeros compuestos de gases nobles descubiertos.'
+            },
+            'Cesio,Cloro': { 
+            nombre: 'Cloruro de cesio', 
+            formula: 'CsCl',
+            tipo: 'Sal',
+            explicacion: 'Usado en centrífugas de gradiente de densidad.'
+            },
+            'Bario,Oxígeno': { 
+            nombre: 'Óxido de bario', 
+            formula: 'BaO',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de vidrio y cerámica.'
+            },
+            'Lantano,Oxígeno': { 
+            nombre: 'Óxido de lantano', 
+            formula: 'La₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en lentes ópticas y catalizadores.'
+            },
+            'Cerio,Oxígeno': { 
+            nombre: 'Óxido de cerio (IV)', 
+            formula: 'CeO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en convertidores catalíticos y pulido de vidrio.'
+            },
+            'Praseodimio,Oxígeno': { 
+            nombre: 'Óxido de praseodimio', 
+            formula: 'Pr₆O₁₁',
+            tipo: 'Óxido',
+            explicacion: 'Pigmento amarillo usado en cerámica y vidrio.'
+            },
+            'Neodimio,Oxígeno': { 
+            nombre: 'Óxido de neodimio', 
+            formula: 'Nd₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en láseres y imanes permanentes.'
+            },
+            'Prometio,Oxígeno': { 
+            nombre: 'Óxido de prometio', 
+            formula: 'Pm₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Fuente de radiación beta en investigación.'
+            },
+            'Samario,Oxígeno': { 
+            nombre: 'Óxido de samario', 
+            formula: 'Sm₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en reactores nucleares y catalizadores.'
+            },
+            'Europio,Oxígeno': { 
+            nombre: 'Óxido de europio', 
+            formula: 'Eu₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en fósforos para televisores y lámparas fluorescentes.'
+            },
+            'Gadolinio,Oxígeno': { 
+            nombre: 'Óxido de gadolinio', 
+            formula: 'Gd₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en resonancia magnética nuclear y en barras de control nuclear.'
+            },
+            'Terbio,Oxígeno': { 
+            nombre: 'Óxido de terbio', 
+            formula: 'Tb₄O₇',
+            tipo: 'Óxido',
+            explicacion: 'Usado en fósforos verdes para televisores.'
+            },
+            'Disprosio,Oxígeno': { 
+            nombre: 'Óxido de disprosio', 
+            formula: 'Dy₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en imanes permanentes y reactores nucleares.'
+            },
+            'Holmio,Oxígeno': { 
+            nombre: 'Óxido de holmio', 
+            formula: 'Ho₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de láseres médicos.'
+            },
+            'Erbio,Oxígeno': { 
+            nombre: 'Óxido de erbio', 
+            formula: 'Er₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en fibras ópticas y como pigmento rosa.'
+            },
+            'Tulio,Oxígeno': { 
+            nombre: 'Óxido de tulio', 
+            formula: 'Tm₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en fuentes portátiles de rayos X.'
+            },
+            'Iterbio,Oxígeno': { 
+            nombre: 'Óxido de iterbio', 
+            formula: 'Yb₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en aleaciones especiales y como catalizador.'
+            },
+            'Lutecio,Oxígeno': { 
+            nombre: 'Óxido de lutecio', 
+            formula: 'Lu₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en catalizadores y en la producción de cristales.'
+            },
+            'Hafnio,Oxígeno': { 
+            nombre: 'Dióxido de hafnio', 
+            formula: 'HfO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en microelectrónica como material dieléctrico.'
+            },
+            'Tantalio,Oxígeno': { 
+            nombre: 'Pentóxido de tantalio', 
+            formula: 'Ta₂O₅',
+            tipo: 'Óxido',
+            explicacion: 'Usado en condensadores electrónicos y lentes ópticas.'
+            },
+            'Wolframio,Oxígeno': { 
+            nombre: 'Trióxido de wolframio', 
+            formula: 'WO₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en pigmentos y como catalizador.'
+            },
+            'Renio,Oxígeno': { 
+            nombre: 'Heptóxido de renio', 
+            formula: 'Re₂O₇',
+            tipo: 'Óxido',
+            explicacion: 'Catalizador en procesos de petróleo.'
+            },
+            'Osmio,Oxígeno': { 
+            nombre: 'Tetróxido de osmio', 
+            formula: 'OsO₄',
+            tipo: 'Óxido',
+            explicacion: 'Usado en tinción de tejidos biológicos y como catalizador.'
+            },
+            'Iridio,Oxígeno': { 
+            nombre: 'Óxido de iridio (IV)', 
+            formula: 'IrO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en electrodos y catalizadores.'
+            },
+            'Platino,Cloro': { 
+            nombre: 'Cloruro de platino (IV)', 
+            formula: 'PtCl₄',
+            tipo: 'Sal',
+            explicacion: 'Catalizador en síntesis orgánica.'
+            },
+            'Oro,Cloro': { 
+            nombre: 'Cloruro de oro (III)', 
+            formula: 'AuCl₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en dorado y como catalizador.'
+            },
+            'Mercurio,Oxígeno': { 
+            nombre: 'Óxido de mercurio (II)', 
+            formula: 'HgO',
+            tipo: 'Óxido',
+            explicacion: 'Usado antiguamente en la producción de mercurio metálico.'
+            },
+            'Talio,Oxígeno': { 
+            nombre: 'Óxido de talio (III)', 
+            formula: 'Tl₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto muy tóxico usado en investigación.'
+            },
+            'Plomo,Oxígeno': { 
+            nombre: 'Óxido de plomo (II)', 
+            formula: 'PbO',
+            tipo: 'Óxido',
+            explicacion: 'Usado en la producción de vidrio y cerámica.'
+            },
+            'Bismuto,Oxígeno': { 
+            nombre: 'Óxido de bismuto (III)', 
+            formula: 'Bi₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Usado en cosméticos y como catalizador.'
+            },
+            'Polonio,Oxígeno': { 
+            nombre: 'Dióxido de polonio', 
+            formula: 'PoO₂',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo extremadamente peligroso.'
+            },
+            'Astato,Oxígeno': { 
+            nombre: 'Óxido de astato', 
+            formula: 'At₂O',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo muy raro e inestable.'
+            },
+            'Radio,Oxígeno': { 
+            nombre: 'Óxido de radio', 
+            formula: 'RaO',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo usado históricamente en medicina.'
+            },
+            'Actinio,Oxígeno': { 
+            nombre: 'Óxido de actinio', 
+            formula: 'Ac₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Torio,Oxígeno': { 
+            nombre: 'Dióxido de torio', 
+            formula: 'ThO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en mantas de gas y como refractario.'
+            },
+            'Protactinio,Oxígeno': { 
+            nombre: 'Óxido de protactinio', 
+            formula: 'Pa₂O₅',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo muy raro.'
+            },
+            'Uranio,Oxígeno': { 
+            nombre: 'Trióxido de uranio', 
+            formula: 'UO₃',
+            tipo: 'Óxido',
+            explicacion: 'Intermedio en la producción de combustible nuclear.'
+            },
+            'Neptunio,Oxígeno': { 
+            nombre: 'Dióxido de neptunio', 
+            formula: 'NpO₂',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Plutonio,Oxígeno': { 
+            nombre: 'Dióxido de plutonio', 
+            formula: 'PuO₂',
+            tipo: 'Óxido',
+            explicacion: 'Forma estable del plutonio usada en combustibles nucleares.'
+            },
+            'Americio,Oxígeno': { 
+            nombre: 'Dióxido de americio', 
+            formula: 'AmO₂',
+            tipo: 'Óxido',
+            explicacion: 'Usado en detectores de humo y investigación.'
+            },
+            'Curio,Oxígeno': { 
+            nombre: 'Óxido de curio', 
+            formula: 'Cm₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Berkelio,Oxígeno': { 
+            nombre: 'Óxido de berkelio', 
+            formula: 'Bk₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo muy raro.'
+            },
+            'Californio,Oxígeno': { 
+            nombre: 'Óxido de californio', 
+            formula: 'Cf₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo usado como fuente de neutrones.'
+            },
+            'Einstenio,Oxígeno': { 
+            nombre: 'Óxido de einstenio', 
+            formula: 'Es₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo extremadamente raro.'
+            },
+            'Fermio,Oxígeno': { 
+            nombre: 'Óxido de fermio', 
+            formula: 'Fm₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo de vida muy corta.'
+            },
+            'Mendelevio,Oxígeno': { 
+            nombre: 'Óxido de mendelevio', 
+            formula: 'Md₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo sintetizado en cantidades mínimas.'
+            },
+            'Nobelio,Oxígeno': { 
+            nombre: 'Óxido de nobelio', 
+            formula: 'No₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo de existencia teórica.'
+            },
+            'Laurencio,Oxígeno': { 
+            nombre: 'Óxido de laurencio', 
+            formula: 'Lr₂O₃',
+            tipo: 'Óxido',
+            explicacion: 'Compuesto radiactivo del último elemento de los actínidos.'
+            }
+        },
+        // Ternary compounds (3 elements)
+        ternarios: {
+            'Sodio,Hidrógeno,Carbono,Oxígeno': { 
+            nombre: 'Bicarbonato de sodio', 
+            formula: 'NaHCO₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en repostería y como antiácido. Se descompone con calor o ácidos.'
+            },
+            'Calcio,Carbono,Oxígeno': { 
+            nombre: 'Carbonato de calcio', 
+            formula: 'CaCO₃',
+            tipo: 'Sal',
+            explicacion: 'Componente principal de rocas como calcita, mármol y piedra caliza.'
+            },
+            'Hidrógeno,Sulfuro,Oxígeno': { 
+            nombre: 'Ácido sulfúrico', 
+            formula: 'H₂SO₄',
+            tipo: 'Ácido',
+            explicacion: 'Uno de los ácidos más importantes industrialmente. Muy corrosivo.'
+            },
+            'Hidrógeno,Nitrógeno,Oxígeno': { 
+            nombre: 'Ácido nítrico', 
+            formula: 'HNO₃',
+            tipo: 'Ácido',
+            explicacion: 'Ácido fuerte usado en la fabricación de fertilizantes y explosivos.'
+            },
+            'Potasio,Nitrógeno,Oxígeno': { 
+            nombre: 'Nitrato de potasio', 
+            formula: 'KNO₃',
+            tipo: 'Sal',
+            explicacion: 'Conocido como salitre. Usado en fertilizantes y pólvora.'
+            },
+            'Sodio,Carbono,Oxígeno': { 
+            nombre: 'Carbonato de sodio', 
+            formula: 'Na₂CO₃',
+            tipo: 'Sal',
+            explicacion: 'Conocido como sosa o ceniza de sosa. Usado en la fabricación de vidrio.'
+            },
+            'Calcio,Silicón,Oxígeno': { 
+            nombre: 'Silicato de calcio', 
+            formula: 'CaSiO₃',
+            tipo: 'Sal',
+            explicacion: 'Componente importante del cemento y de muchos minerales.'
+            },
+            'Magnesio,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de magnesio', 
+            formula: 'MgSO₄',
+            tipo: 'Sal',
+            explicacion: 'Conocido como sales de Epsom. Usado en baños terapéuticos.'
+            },
+            'Cobre,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de cobre (II)', 
+            formula: 'CuSO₄',
+            tipo: 'Sal',
+            explicacion: 'Conocido como vitriolo azul. Fungicida y alguicida.'
+            },
+            'Hierro,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de hierro (II)', 
+            formula: 'FeSO₄',
+            tipo: 'Sal',
+            explicacion: 'Conocido como caparrosa verde. Usado en tintes y como suplemento.'
+            },
+            'Aluminio,Cloro,Hidrógeno': { 
+            nombre: 'Cloruro de aluminio hexahidratado', 
+            formula: 'AlCl₃·6H₂O',
+            tipo: 'Sal hidratada',
+            explicacion: 'Catalizador importante en reacciones orgánicas.'
+            },
+            'Sodio,Fósforo,Oxígeno': { 
+            nombre: 'Fosfato de sodio', 
+            formula: 'Na₃PO₄',
+            tipo: 'Sal',
+            explicacion: 'Usado como aditivo alimentario y en detergentes.'
+            },
+            'Calcio,Fósforo,Oxígeno': { 
+            nombre: 'Fosfato de calcio', 
+            formula: 'Ca₃(PO₄)₂',
+            tipo: 'Sal',
+            explicacion: 'Componente principal de huesos y dientes. Usado en fertilizantes.'
+            },
+            'Potasio,Carbono,Oxígeno': { 
+            nombre: 'Carbonato de potasio', 
+            formula: 'K₂CO₃',
+            tipo: 'Sal',
+            explicacion: 'Conocido como potasa. Usado en la fabricación de jabones.'
+            },
+            'Hidrógeno,Fósforo,Oxígeno': { 
+            nombre: 'Ácido fosfórico', 
+            formula: 'H₃PO₄',
+            tipo: 'Ácido',
+            explicacion: 'Usado en bebidas gaseosas y en la industria de fertilizantes.'
+            },
+            'Bario,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de bario', 
+            formula: 'BaSO₄',
+            tipo: 'Sal',
+            explicacion: 'Usado en radiología como medio de contraste.'
+            },
+            'Plata,Nitrógeno,Oxígeno': { 
+            nombre: 'Nitrato de plata', 
+            formula: 'AgNO₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en fotografía y como antiséptico.'
+            },
+            'Zinc,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de zinc', 
+            formula: 'ZnSO₄',
+            tipo: 'Sal',
+            explicacion: 'Usado como suplemento nutricional y en agricultura.'
+            },
+            'Amonio,Nitrógeno,Oxígeno': { 
+            nombre: 'Nitrato de amonio', 
+            formula: 'NH₄NO₃',
+            tipo: 'Sal',
+            explicacion: 'Fertilizante nitrogenado importante. También usado en explosivos.'
+            },
+            // NUEVAS COMBINACIONES TERNARIAS
+            'Litio,Carbono,Oxígeno': { 
+            nombre: 'Carbonato de litio', 
+            formula: 'Li₂CO₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en el tratamiento del trastorno bipolar y en baterías.'
+            },
+            'Berilio,Aluminio,Oxígeno': { 
+            nombre: 'Berilio-aluminio', 
+            formula: 'Be₃Al₂(SiO₃)₆',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como berilo. Variedades incluyen esmeralda y aguamarina.'
+            },
+            'Boro,Sodio,Oxígeno': { 
+            nombre: 'Borato de sodio', 
+            formula: 'Na₂B₄O₇',
+            tipo: 'Sal',
+            explicacion: 'Conocido como bórax. Usado en detergentes y como fundente.'
+            },
+            'Carbono,Potasio,Nitrógeno': { 
+            nombre: 'Ferricianuro de potasio', 
+            formula: 'K₃[Fe(CN)₆]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en fotografía y como reactivo en laboratorio.'
+            },
+            'Nitrógeno,Calcio,Hidrógeno': { 
+            nombre: 'Cianamida cálcica', 
+            formula: 'CaCN₂',
+            tipo: 'Fertilizante',
+            explicacion: 'Fertilizante nitrogenado que también actúa como herbicida.'
+            },
+            'Oxígeno,Cloro,Potasio': { 
+            nombre: 'Clorato de potasio', 
+            formula: 'KClO₃',
+            tipo: 'Oxisal',
+            explicacion: 'Usado en fósforos, fuegos artificiales y como desinfectante.'
+            },
+            'Flúor,Sodio,Aluminio': { 
+            nombre: 'Criolita', 
+            formula: 'Na₃AlF₆',
+            tipo: 'Mineral',
+            explicacion: 'Usada en la producción de aluminio por el proceso Hall-Héroult.'
+            },
+            'Neón,Hidrógeno,Oxígeno': { 
+            nombre: 'Agua pesada con neón', 
+            formula: 'D₂O + Ne',
+            tipo: 'Mezcla',
+            explicacion: 'Usada en investigación nuclear y como moderador en reactores.'
+            },
+            'Sodio,Azufre,Oxígeno': { 
+            nombre: 'Tiosulfato de sodio', 
+            formula: 'Na₂S₂O₃',
+            tipo: 'Sal',
+            explicacion: 'Conocido como hiposulfito. Usado en fotografía y como antídoto.'
+            },
+            'Magnesio,Aluminio,Oxígeno': { 
+            nombre: 'Espinela', 
+            formula: 'MgAl₂O₄',
+            tipo: 'Mineral',
+            explicacion: 'Mineral usado como gema y material refractario.'
+            },
+            'Aluminio,Potasio,Sulfuro': { 
+            nombre: 'Alumbre de potasio', 
+            formula: 'KAl(SO₄)₂',
+            tipo: 'Sal doble',
+            explicacion: 'Usado como astringente y en el curtido de cueros.'
+            },
+            'Silicio,Calcio,Oxígeno': { 
+            nombre: 'Wollastonita', 
+            formula: 'CaSiO₃',
+            tipo: 'Mineral',
+            explicacion: 'Usada en cerámica, plásticos y como carga mineral.'
+            },
+            'Fósforo,Amonio,Oxígeno': { 
+            nombre: 'Fosfato de amonio', 
+            formula: '(NH₄)₃PO₄',
+            tipo: 'Fertilizante',
+            explicacion: 'Fertilizante complejo que proporciona nitrógeno y fósforo.'
+            },
+            'Azufre,Calcio,Hidrógeno': { 
+            nombre: 'Sulfato de calcio dihidratado', 
+            formula: 'CaSO₄·2H₂O',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como yeso. Usado en construcción y odontología.'
+            },
+            'Cloro,Calcio,Hidrógeno': { 
+            nombre: 'Hipoclorito de calcio', 
+            formula: 'Ca(ClO)₂',
+            tipo: 'Sal',
+            explicacion: 'Usado como blanqueador y desinfectante de agua.'
+            },
+            'Argón,Fluor,Hidrógeno': { 
+            nombre: 'Fluoruro de argón-hidrógeno', 
+            formula: 'HArF',
+            tipo: 'Compuesto noble',
+            explicacion: 'Uno de los pocos compuestos del argón descubiertos.'
+            },
+            'Potasio,Cromo,Oxígeno': { 
+            nombre: 'Dicromato de potasio', 
+            formula: 'K₂Cr₂O₇',
+            tipo: 'Sal',
+            explicacion: 'Oxidante fuerte usado en análisis químico y curtido.'
+            },
+            'Calcio,Nitrógeno,Hidrógeno': { 
+            nombre: 'Cianamida cálcica', 
+            formula: 'CaCN₂',
+            tipo: 'Fertilizante',
+            explicacion: 'Fertilizante nitrogenado que también actúa como herbicida.'
+            },
+            'Escandio,Oxígeno,Hidrógeno': { 
+            nombre: 'Hidróxido de escandio', 
+            formula: 'Sc(OH)₃',
+            tipo: 'Base',
+            explicacion: 'Compuesto básico usado en investigación de materiales.'
+            },
+            'Titanio,Bario,Oxígeno': { 
+            nombre: 'Titanato de bario', 
+            formula: 'BaTiO₃',
+            tipo: 'Cerámica',
+            explicacion: 'Material piezoeléctrico usado en electrónica y sensores.'
+            },
+            'Vanadio,Potasio,Oxígeno': { 
+            nombre: 'Metavanadato de potasio', 
+            formula: 'KVO₃',
+            tipo: 'Sal',
+            explicacion: 'Catalizador en procesos químicos industriales.'
+            },
+            'Cromo,Plomo,Oxígeno': { 
+            nombre: 'Cromato de plomo', 
+            formula: 'PbCrO₄',
+            tipo: 'Pigmento',
+            explicacion: 'Conocido como amarillo cromo. Pigmento amarillo brillante.'
+            },
+            'Manganeso,Sodio,Oxígeno': { 
+            nombre: 'Permanganato de sodio', 
+            formula: 'NaMnO₄',
+            tipo: 'Sal',
+            explicacion: 'Oxidante fuerte usado como desinfectante y en análisis químico.'
+            },
+            'Hierro,Cianuro,Potasio': { 
+            nombre: 'Ferrocianuro de potasio', 
+            formula: 'K₄[Fe(CN)₆]',
+            tipo: 'Complejo',
+            explicacion: 'Antiguamente usado en la fabricación de pigmentos azules.'
+            },
+            'Cobalto,Aluminio,Oxígeno': { 
+            nombre: 'Cobalto-aluminio', 
+            formula: 'CoAl₂O₄',
+            tipo: 'Pigmento',
+            explicacion: 'Conocido como azul cobalto. Pigmento azul intenso.'
+            },
+            'Níquel,Titanio,Oxígeno': { 
+            nombre: 'Titanato de níquel', 
+            formula: 'NiTiO₃',
+            tipo: 'Pigmento',
+            explicacion: 'Pigmento amarillo usado en cerámica y plásticos.'
+            },
+            'Cobre,Amonio,Oxígeno': { 
+            nombre: 'Sulfato de cobre amoniacal', 
+            formula: '[Cu(NH₃)₄]SO₄',
+            tipo: 'Complejo',
+            explicacion: 'Reactivo de Benedict usado para detectar azúcares reductores.'
+            },
+            'Zinc,Carbono,Oxígeno': { 
+            nombre: 'Carbonato de zinc', 
+            formula: 'ZnCO₃',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como smithsonita. Mineral de zinc y gema colectora.'
+            },
+            'Galio,Arsénico,Oxígeno': { 
+            nombre: 'Arseniuro de galio', 
+            formula: 'GaAs',
+            tipo: 'Semiconductor',
+            explicacion: 'Material semiconductor usado en electrónica de alta velocidad.'
+            },
+            'Germanio,Oxígeno,Hidrógeno': { 
+            nombre: 'Dióxido de germanio hidratado', 
+            formula: 'GeO₂·nH₂O',
+            tipo: 'Gel',
+            explicacion: 'Usado en lentes de infrarrojos y fibra óptica.'
+            },
+            'Arsénico,Cobre,Oxígeno': { 
+            nombre: 'Arseniato de cobre', 
+            formula: 'Cu₃(AsO₄)₂',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como eritrita. Mineral indicador de depósitos de cobalto.'
+            },
+            'Selenio,Sodio,Oxígeno': { 
+            nombre: 'Selenito de sodio', 
+            formula: 'Na₂SeO₃',
+            tipo: 'Suplemento',
+            explicacion: 'Fuente de selenio en suplementos nutricionales.'
+            },
+            'Bromo,Potasio,Oxígeno': { 
+            nombre: 'Bromato de potasio', 
+            formula: 'KBrO₃',
+            tipo: 'Oxisal',
+            explicacion: 'Usado como agente madurador en panadería (ahora prohibido).'
+            },
+            'Kriptón,Flúor,Oxígeno': { 
+            nombre: 'Fluoruro de kriptón-oxígeno', 
+            formula: 'KrF₂',
+            tipo: 'Compuesto noble',
+            explicacion: 'Uno de los pocos compuestos del kriptón descubiertos.'
+            },
+            'Rubidio,Plata,Oxígeno': { 
+            nombre: 'Rubidio-plata', 
+            formula: 'RbAg₄I₅',
+            tipo: 'Electrolito',
+            explicacion: 'Electrolito sólido usado en baterías de estado sólido.'
+            },
+            'Estroncio,Titanio,Oxígeno': { 
+            nombre: 'Titanato de estroncio', 
+            formula: 'SrTiO₃',
+            tipo: 'Cerámica',
+            explicacion: 'Material dieléctrico usado en electrónica.'
+            },
+            'Itrio,Bario,Oxígeno': { 
+            nombre: 'YBa₂Cu₃O₇', 
+            formula: 'YBa₂Cu₃O₇',
+            tipo: 'Superconductor',
+            explicacion: 'Uno de los primeros superconductores de alta temperatura.'
+            },
+            'Circonio,Silicio,Oxígeno': { 
+            nombre: 'Silicato de circonio', 
+            formula: 'ZrSiO₄',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como circón. Gema y fuente de circonio.'
+            },
+            'Niobio,Estaño,Oxígeno': { 
+            nombre: 'Niobio-estaño', 
+            formula: 'Nb₃Sn',
+            tipo: 'Superconductor',
+            explicacion: 'Superconductor usado en imanes de resonancia magnética.'
+            },
+            'Molibdeno,Hierro,Oxígeno': { 
+            nombre: 'Molibdenita', 
+            formula: 'MoS₂',
+            tipo: 'Mineral',
+            explicacion: 'Mineral principal del molibdeno y lubricante sólido.'
+            },
+            'Tecnecio,Oxígeno,Hidrógeno': { 
+            nombre: 'Pertecnetato', 
+            formula: 'TcO₄⁻',
+            tipo: 'Radiofármaco',
+            explicacion: 'Forma química del tecnecio usada en medicina nuclear.'
+            },
+            'Rutenio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de rutenio hidratado', 
+            formula: 'RuO₂·xH₂O',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador usado en procesos electroquímicos.'
+            },
+            'Rodio,Cloro,Hidrógeno': { 
+            nombre: 'Cloruro de rodio (III)', 
+            formula: 'RhCl₃',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador importante en procesos industriales.'
+            },
+            'Paladio,Carbono,Oxígeno': { 
+            nombre: 'Acetato de paladio', 
+            formula: 'Pd(OCOCH₃)₂',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador usado en reacciones de acoplamiento.'
+            },
+            'Plata,Cianuro,Potasio': { 
+            nombre: 'Cianuro de plata y potasio', 
+            formula: 'K[Ag(CN)₂]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en galvanoplastia y joyería.'
+            },
+            'Cadmio,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de cadmio', 
+            formula: 'CdSO₄',
+            tipo: 'Sal',
+            explicacion: 'Usado en baterías y como pigmento.'
+            },
+            'Indio,Estaño,Oxígeno': { 
+            nombre: 'Óxido de indio y estaño', 
+            formula: 'In₂O₃·SnO₂',
+            tipo: 'Conductor',
+            explicacion: 'Conductor transparente usado en pantallas táctiles.'
+            },
+            'Estaño,Plomo,Oxígeno': { 
+            nombre: 'Soldadura de estaño-plomo', 
+            formula: 'Sn-Pb',
+            tipo: 'Aleación',
+            explicacion: 'Aleación usada en electrónica para soldadura.'
+            },
+            'Antimonio,Plomo,Oxígeno': { 
+            nombre: 'Antimoniato de plomo', 
+            formula: 'Pb₃(SbO₄)₂',
+            tipo: 'Pigmento',
+            explicacion: 'Pigmento amarillo usado en pinturas.'
+            },
+            'Telurio,Cadmio,Oxígeno': { 
+            nombre: 'Telururo de cadmio', 
+            formula: 'CdTe',
+            tipo: 'Semiconductor',
+            explicacion: 'Material usado en paneles solares de película delgada.'
+            },
+            'Yodo,Potasio,Oxígeno': { 
+            nombre: 'Yodato de potasio', 
+            formula: 'KIO₃',
+            tipo: 'Sal',
+            explicacion: 'Fuente de yodo en suplementos y sal yodada.'
+            },
+            'Xenón,Flúor,Oxígeno': { 
+            nombre: 'Fluoruro de xenón-oxígeno', 
+            formula: 'XeOF₄',
+            tipo: 'Compuesto noble',
+            explicacion: 'Compuesto estable del xenón usado en investigación.'
+            },
+            'Cesio,Antimonio,Oxígeno': { 
+            nombre: 'Cesio-antimonio', 
+            formula: 'Cs₃Sb',
+            tipo: 'Fotocátodo',
+            explicacion: 'Material usado en tubos fotomultiplicadores.'
+            },
+            'Bario,Titanio,Oxígeno': { 
+            nombre: 'Titanato de bario', 
+            formula: 'BaTiO₃',
+            tipo: 'Cerámica',
+            explicacion: 'Material piezoeléctrico usado en electrónica.'
+            },
+            'Lantano,Níquel,Oxígeno': { 
+            nombre: 'Lantano-níquel', 
+            formula: 'LaNi₅',
+            tipo: 'Aleación',
+            explicacion: 'Aleación usada en almacenamiento de hidrógeno.'
+            },
+            'Cerio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de cerio (III) hidratado', 
+            formula: 'Ce₂O₃·xH₂O',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador usado en procesos de oxidación.'
+            },
+            'Praseodimio,Oxígeno,Hidrógeno': { 
+            nombre: 'Hidróxido de praseodimio', 
+            formula: 'Pr(OH)₃',
+            tipo: 'Base',
+            explicacion: 'Compuesto básico usado en investigación.'
+            },
+            'Neodimio,Hierro,Boro': { 
+            nombre: 'Neodimio-hierro-boro', 
+            formula: 'Nd₂Fe₁₄B',
+            tipo: 'Imán',
+            explicacion: 'Material para imanes permanentes muy potentes.'
+            },
+            'Prometio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de prometio', 
+            formula: 'Pm₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Fuente de radiación beta en investigación.'
+            },
+            'Samario,Cobalto,Oxígeno': { 
+            nombre: 'Samario-cobalto', 
+            formula: 'SmCo₅',
+            tipo: 'Imán',
+            explicacion: 'Material para imanes permanentes de alta temperatura.'
+            },
+            'Europio,Itrio,Oxígeno': { 
+            nombre: 'Europio-itrio', 
+            formula: 'Y₂O₃:Eu³⁺',
+            tipo: 'Fósforo',
+            explicacion: 'Fósforo rojo usado en televisores y lámparas fluorescentes.'
+            },
+            'Gadolinio,Galio,Oxígeno': { 
+            nombre: 'Gadolinio-galio', 
+            formula: 'Gd₃Ga₅O₁₂',
+            tipo: 'Cristal',
+            explicacion: 'Cristal usado en resonancia magnética y láseres.'
+            },
+            'Terbio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de terbio', 
+            formula: 'Tb₄O₇',
+            tipo: 'Fósforo',
+            explicacion: 'Fósforo verde usado en dispositivos de visualización.'
+            },
+            'Disprosio,Titanio,Oxígeno': { 
+            nombre: 'Titanato de disprosio', 
+            formula: 'Dy₂Ti₂O₇',
+            tipo: 'Material',
+            explicacion: 'Material con hielo de espín usado en investigación.'
+            },
+            'Holmio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de holmio', 
+            formula: 'Ho₂O₃',
+            tipo: 'Material',
+            explicacion: 'Usado en la producción de láseres médicos.'
+            },
+            'Erbio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de erbio', 
+            formula: 'Er₂O₃',
+            tipo: 'Material',
+            explicacion: 'Usado en fibras ópticas y como pigmento rosa.'
+            },
+            'Tulio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de tulio', 
+            formula: 'Tm₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Usado en fuentes portátiles de rayos X.'
+            },
+            'Iterbio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de iterbio', 
+            formula: 'Yb₂O₃',
+            tipo: 'Material',
+            explicacion: 'Usado en aleaciones especiales y como catalizador.'
+            },
+            'Lutecio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de lutecio', 
+            formula: 'Lu₂O₃',
+            tipo: 'Material',
+            explicacion: 'Usado en catalizadores y en la producción de cristales.'
+            },
+            'Hafnio,Oxígeno,Nitrógeno': { 
+            nombre: 'Nitruro de hafnio', 
+            formula: 'HfN',
+            tipo: 'Cerámica',
+            explicacion: 'Material cerámico muy duro usado en recubrimientos.'
+            },
+            'Tantalio,Oxígeno,Nitrógeno': { 
+            nombre: 'Nitruro de tantalio', 
+            formula: 'TaN',
+            tipo: 'Cerámica',
+            explicacion: 'Material usado en electrónica y recubrimientos duros.'
+            },
+            'Wolframio,Carbono,Oxígeno': { 
+            nombre: 'Carbonilo de wolframio', 
+            formula: 'W(CO)₆',
+            tipo: 'Complejo',
+            explicacion: 'Usado en la deposición química de vapor de wolframio.'
+            },
+            'Renio,Oxígeno,Potasio': { 
+            nombre: 'Perrenato de potasio', 
+            formula: 'KReO₄',
+            tipo: 'Sal',
+            explicacion: 'Compuesto usado en investigación y como estándar analítico.'
+            },
+            'Osmio,Oxígeno,Potasio': { 
+            nombre: 'Osmiato de potasio', 
+            formula: 'K₂[OsO₄(OH)₂]',
+            tipo: 'Complejo',
+            explicacion: 'Reactivo usado en la dihidroxilación de alquenos.'
+            },
+            'Iridio,Cloro,Hidrógeno': { 
+            nombre: 'Cloruro de iridio (III)', 
+            formula: 'IrCl₃',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador usado en procesos industriales.'
+            },
+            'Platino,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de platino', 
+            formula: 'PtO₂',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador usado en hidrogenación.'
+            },
+            'Oro,Cianuro,Sodio': { 
+            nombre: 'Cianuro de oro y sodio', 
+            formula: 'Na[Au(CN)₂]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en galvanoplastia y extracción de oro.'
+            },
+            'Mercurio,Azufre,Oxígeno': { 
+            nombre: 'Sulfato de mercurio (II)', 
+            formula: 'HgSO₄',
+            tipo: 'Sal',
+            explicacion: 'Usado como catalizador en procesos químicos.'
+            },
+            'Talio,Sulfuro,Oxígeno': { 
+            nombre: 'Sulfato de talio (I)', 
+            formula: 'Tl₂SO₄',
+            tipo: 'Sal',
+            explicacion: 'Compuesto muy tóxico usado en investigación.'
+            },
+            'Plomo,Carbono,Oxígeno': { 
+            nombre: 'Carbonato de plomo (II)', 
+            formula: 'PbCO₃',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como cerusita. Mineral de plomo y pigmento blanco.'
+            },
+            'Bismuto,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de bismuto (III)', 
+            formula: 'Bi₂O₃',
+            tipo: 'Pigmento',
+            explicacion: 'Usado en cosméticos y como catalizador.'
+            },
+            'Polonio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de polonio', 
+            formula: 'PoO₂',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo extremadamente peligroso.'
+            },
+            'Astato,Oxígeno,Hidrógeno': { 
+            nombre: 'Ácido astático', 
+            formula: 'HAtO₃',
+            tipo: 'Ácido',
+            explicacion: 'Compuesto radiactivo muy raro e inestable.'
+            },
+            'Radio,Oxígeno,Hidrógeno': { 
+            nombre: 'Hidróxido de radio', 
+            formula: 'Ra(OH)₂',
+            tipo: 'Base',
+            explicacion: 'Compuesto radiactivo usado históricamente en medicina.'
+            },
+            'Actinio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de actinio', 
+            formula: 'Ac₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Torio,Oxígeno,Hidrógeno': { 
+            nombre: 'Hidróxido de torio', 
+            formula: 'Th(OH)₄',
+            tipo: 'Base',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Protactinio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de protactinio', 
+            formula: 'Pa₂O₅',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo muy raro.'
+            },
+            'Uranio,Oxígeno,Fluor': { 
+            nombre: 'Hexafluoruro de uranio', 
+            formula: 'UF₆',
+            tipo: 'Compuesto',
+            explicacion: 'Usado en el enriquecimiento de uranio para combustible nuclear.'
+            },
+            'Neptunio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de neptunio', 
+            formula: 'NpO₂',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Plutonio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de plutonio', 
+            formula: 'PuO₂',
+            tipo: 'Radioisótopo',
+            explicacion: 'Forma estable del plutonio usada en combustibles nucleares.'
+            },
+            'Americio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de americio', 
+            formula: 'AmO₂',
+            tipo: 'Radioisótopo',
+            explicacion: 'Usado en detectores de humo y investigación.'
+            },
+            'Curio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de curio', 
+            formula: 'Cm₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo usado en investigación.'
+            },
+            'Berkelio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de berkelio', 
+            formula: 'Bk₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo muy raro.'
+            },
+            'Californio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de californio', 
+            formula: 'Cf₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo usado como fuente de neutrones.'
+            },
+            'Einstenio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de einstenio', 
+            formula: 'Es₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo extremadamente raro.'
+            },
+            'Fermio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de fermio', 
+            formula: 'Fm₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo de vida muy corta.'
+            },
+            'Mendelevio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de mendelevio', 
+            formula: 'Md₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo sintetizado en cantidades mínimas.'
+            },
+            'Nobelio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de nobelio', 
+            formula: 'No₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo de existencia teórica.'
+            },
+            'Laurencio,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de laurencio', 
+            formula: 'Lr₂O₃',
+            tipo: 'Radioisótopo',
+            explicacion: 'Compuesto radiactivo del último elemento de los actínidos.'
+            }
+        },
+        
+        // Quaternary compounds (4 elements)
+        cuaternarios: {
+            'Sodio,Carbono,Nitrógeno,Oxígeno': { 
+            nombre: 'Cianuro de sodio', 
+            formula: 'NaCN',
+            tipo: 'Sal',
+            explicacion: 'Compuesto extremadamente tóxico. Usado en minería para extraer oro.'
+            },
+            'Carbono,Hidrógeno,Oxígeno,Nitrógeno': { 
+            nombre: 'Urea', 
+            formula: 'CO(NH₂)₂',
+            tipo: 'Orgánico',
+            explicacion: 'Compuesto orgánico presente en la orina. Usado como fertilizante nitrogenado.'
+            },
+            'Calcio,Carbono,Hidrógeno,Oxígeno': { 
+            nombre: 'Acetato de calcio', 
+            formula: 'Ca(CH₃COO)₂',
+            tipo: 'Sal orgánica',
+            explicacion: 'Usado como conservante de alimentos y en procesos químicos.'
+            },
+            'Sodio,Carbono,Hidrógeno,Oxígeno': { 
+            nombre: 'Acetato de sodio', 
+            formula: 'CH₃COONa',
+            tipo: 'Sal orgánica',
+            explicacion: 'Usado en paquetes de calor químico y como conservante.'
+            },
+            'Potasio,Carbono,Nitrógeno,Oxígeno': { 
+            nombre: 'Ferricianuro de potasio', 
+            formula: 'K₃[Fe(CN)₆]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en fotografía y como reactivo en laboratorio.'
+            },
+            'Hierro,Carbono,Nitrógeno,Oxígeno': { 
+            nombre: 'Ferrocianuro de potasio', 
+            formula: 'K₄[Fe(CN)₆]',
+            tipo: 'Complejo',
+            explicacion: 'Antiguamente usado en la fabricación de pigmentos azules.'
+            },
+            'Cobre,Carbono,Hidrógeno,Oxígeno': { 
+            nombre: 'Acetato de cobre (II)', 
+            formula: 'Cu(CH₃COO)₂',
+            tipo: 'Sal orgánica',
+            explicacion: 'Conocido como verdigris. Pigmento verde usado históricamente.'
+            },
+            'Plata,Carbono,Nitrógeno,Oxígeno': { 
+            nombre: 'Cianuro de plata', 
+            formula: 'AgCN',
+            tipo: 'Sal',
+            explicacion: 'Usado en galvanoplastia y en joyería.'
+            },
+            'Zinc,Carbono,Nitrógeno,Oxígeno': { 
+            nombre: 'Cianuro de zinc', 
+            formula: 'Zn(CN)₂',
+            tipo: 'Sal',
+            explicacion: 'Usado en galvanoplastia y como pesticida.'
+            },
+            'Mercurio,Carbono,Nitrógeno,Oxígeno': { 
+            nombre: 'Fulminato de mercurio', 
+            formula: 'Hg(CNO)₂',
+            tipo: 'Explosivo',
+            explicacion: 'Explosivo primario muy sensible usado en cápsulas detonantes.'
+            },
+            'Sodio,Boro,Oxígeno,Hidrógeno': { 
+            nombre: 'Borato de sodio', 
+            formula: 'Na₂B₄O₇·10H₂O',
+            tipo: 'Sal hidratada',
+            explicacion: 'Conocido como bórax. Usado en detergentes y como fundente.'
+            },
+            'Calcio,Silicón,Oxígeno,Hidrógeno': { 
+            nombre: 'Silicato de calcio hidratado', 
+            formula: 'CaSiO₃·H₂O',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como wollastonita. Usado en cerámica y plásticos.'
+            },
+            'Magnesio,Silicón,Oxígeno,Hidrógeno': { 
+            nombre: 'Talc', 
+            formula: 'Mg₃Si₄O₁₀(OH)₂',
+            tipo: 'Mineral',
+            explicacion: 'Mineral más blando. Usado en polvos talco y cosméticos.'
+            },
+            'Aluminio,Potasio,Sulfuro,Oxígeno': { 
+            nombre: 'Alumbre de potasio', 
+            formula: 'KAl(SO₄)₂·12H₂O',
+            tipo: 'Sal doble',
+            explicacion: 'Usado como astringente y en el curtido de cueros.'
+            },
+            'Cromo,Potasio,Oxígeno,Hidrógeno': { 
+            nombre: 'Dicromato de potasio', 
+            formula: 'K₂Cr₂O₇',
+            tipo: 'Sal',
+            explicacion: 'Oxidante fuerte usado en análisis químico y curtido.'
+            },
+            'Manganeso,Potasio,Oxígeno,Hidrógeno': { 
+            nombre: 'Permanganato de potasio', 
+            formula: 'KMnO₄',
+            tipo: 'Sal',
+            explicacion: 'Oxidante fuerte usado como desinfectante y en análisis químico.'
+            },
+            'Cobre,Calcio,Oxígeno,Hidrógeno': { 
+            nombre: 'Cal apagada con cobre', 
+            formula: 'Ca(OH)₂ + Cu(OH)₂',
+            tipo: 'Mezcla',
+            explicacion: 'Usada como fungicida en agricultura (caldo bordelés).'
+            },
+            'Sodio,Titanio,Oxígeno,Hidrógeno': { 
+            nombre: 'Titanato de sodio', 
+            formula: 'Na₂TiO₃',
+            tipo: 'Cerámica',
+            explicacion: 'Material cerámico con propiedades piezoeléctricas.'
+            },
+            'Litio,Cobalto,Oxígeno,Hidrógeno': { 
+            nombre: 'Óxido de cobalto y litio', 
+            formula: 'LiCoO₂',
+            tipo: 'Batería',
+            explicacion: 'Material catódico usado en baterías de ion-litio.'
+            },
+            'Níquel,Manganeso,Cobalto,Oxígeno': { 
+            nombre: 'Óxido de níquel-manganeso-cobalto', 
+            formula: 'LiNiMnCoO₂',
+            tipo: 'Batería',
+            explicacion: 'Material catódico de última generación para baterías.'
+            },
+            // NUEVAS COMBINACIONES CUATERNARIAS
+            'Carbono,Hidrógeno,Oxígeno,Nitrógeno': { 
+            nombre: 'Aminoácido glicina', 
+            formula: 'C₂H₅NO₂',
+            tipo: 'Orgánico',
+            explicacion: 'Aminoácido más simple. Componente esencial de las proteínas.'
+            },
+            'Carbono,Hidrógeno,Oxígeno,Fósforo': { 
+            nombre: 'Fosfato de glucosa', 
+            formula: 'C₆H₁₁O₉P',
+            tipo: 'Bioquímico',
+            explicacion: 'Intermediario en la glucólisis y fotosíntesis.'
+            },
+            'Nitrógeno,Hidrógeno,Oxígeno,Fósforo': { 
+            nombre: 'Adenosín trifosfato', 
+            formula: 'C₁₀H₁₆N₅O₁₃P₃',
+            tipo: 'Bioquímico',
+            explicacion: 'Principal molécula de transferencia de energía en las células.'
+            },
+            'Hierro,Azufre,Nitrógeno,Oxígeno': { 
+            nombre: 'Nitroprusiato de sodio', 
+            formula: 'Na₂[Fe(CN)₅NO]',
+            tipo: 'Complejo',
+            explicacion: 'Vasodilatador usado en emergencias hipertensivas.'
+            },
+            'Cobre,Azufre,Nitrógeno,Oxígeno': { 
+            nombre: 'Tetraquis(acetonitrilo)cobre(I)', 
+            formula: '[Cu(CH₃CN)₄]⁺',
+            tipo: 'Complejo',
+            explicacion: 'Catalizador usado en reacciones de acoplamiento.'
+            },
+            'Plata,Azufre,Nitrógeno,Oxígeno': { 
+            nombre: 'Tiosulfato de plata', 
+            formula: 'Ag₂S₂O₃',
+            tipo: 'Complejo',
+            explicacion: 'Usado en fotografía para fijar imágenes.'
+            },
+            'Oro,Cianuro,Potasio,Oxígeno': { 
+            nombre: 'Cianuro de oro y potasio', 
+            formula: 'K[Au(CN)₂]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en galvanoplastia y joyería.'
+            },
+            'Platino,Cloro,Nitrógeno,Oxígeno': { 
+            nombre: 'Cisplatino', 
+            formula: 'PtCl₂(NH₃)₂',
+            tipo: 'Fármaco',
+            explicacion: 'Agente quimioterapéutico usado contra varios tipos de cáncer.'
+            },
+            'Mercurio,Yodo,Potasio,Oxígeno': { 
+            nombre: 'Reactivo de Nessler', 
+            formula: 'K₂[HgI₄]',
+            tipo: 'Reactivo',
+            explicacion: 'Usado para detectar amoníaco en análisis químico.'
+            },
+            'Plomo,Yodo,Potasio,Oxígeno': { 
+            nombre: 'Yoduro de plomo y potasio', 
+            formula: 'K₂[PbI₄]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en la preparación de pigmentos y en investigación.'
+            },
+            'Estaño,Cloro,Hidrógeno,Oxígeno': { 
+            nombre: 'Cloruro de estaño (II) hidratado', 
+            formula: 'SnCl₂·2H₂O',
+            tipo: 'Sal hidratada',
+            explicacion: 'Agente reductor usado en química analítica y orgánica.'
+            },
+            'Antimonio,Potasio,Tartrato,Oxígeno': { 
+            nombre: 'Tartrato de antimonio y potasio', 
+            formula: 'K(SbO)C₄H₄O₆',
+            tipo: 'Complejo',
+            explicacion: 'Conocido como emético. Usado como expectorante.'
+            },
+            'Bismuto,Oxígeno,Yodo,Potasio': { 
+            nombre: 'Yoduro de bismuto y potasio', 
+            formula: 'K[BiI₄]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en investigación y síntesis química.'
+            },
+            'Litio,Níquel,Cobalto,Oxígeno': { 
+            nombre: 'Óxido de litio-níquel-cobalto-aluminio', 
+            formula: 'LiNiCoAlO₂',
+            tipo: 'Batería',
+            explicacion: 'Material catódico para baterías de alta densidad energética.'
+            },
+            'Sodio,Hierro,Cianuro,Nitrógeno': { 
+            nombre: 'Ferricianuro de sodio', 
+            formula: 'Na₃[Fe(CN)₆]',
+            tipo: 'Complejo',
+            explicacion: 'Usado en fotografía y como reactivo analítico.'
+            },
+            'Potasio,Hierro,Cianuro,Nitrógeno': { 
+            nombre: 'Ferrocianuro de potasio', 
+            formula: 'K₄[Fe(CN)₆]',
+            tipo: 'Complejo',
+            explicacion: 'Antiguamente usado en la fabricación de pigmentos azules.'
+            },
+            'Calcio,Fósforo,Oxígeno,Hidrógeno': { 
+            nombre: 'Hidroxiapatita', 
+            formula: 'Ca₁₀(PO₄)₆(OH)₂',
+            tipo: 'Mineral',
+            explicacion: 'Componente principal de huesos y dientes.'
+            },
+            'Magnesio,Aluminio,Oxígeno,Hidrógeno': { 
+            nombre: 'Hidrotalcita', 
+            formula: 'Mg₆Al₂(CO₃)(OH)₁₆·4H₂O',
+            tipo: 'Mineral',
+            explicacion: 'Usada como antiácido y catalizador.'
+            },
+            'Aluminio,Silicio,Oxígeno,Hidrógeno': { 
+            nombre: 'Caolinita', 
+            formula: 'Al₂Si₂O₅(OH)₄',
+            tipo: 'Mineral',
+            explicacion: 'Arcilla blanca usada en cerámica y papel.'
+            },
+            'Silicio,Oxígeno,Hidrógeno,Sodio': { 
+            nombre: 'Silicato de sodio', 
+            formula: 'Na₂SiO₃',
+            tipo: 'Sal',
+            explicacion: 'Conocido como vidrio soluble. Usado en detergentes y cementos.'
+            },
+            'Fósforo,Oxígeno,Hidrógeno,Calcio': { 
+            nombre: 'Fosfato monocálcico', 
+            formula: 'Ca(H₂PO₄)₂',
+            tipo: 'Fertilizante',
+            explicacion: 'Fertilizante fosfatado de rápida disponibilidad.'
+            },
+            'Azufre,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Bisulfato de potasio', 
+            formula: 'KHSO₄',
+            tipo: 'Sal ácida',
+            explicacion: 'Usado en la producción de fertilizantes y como fundente.'
+            },
+            'Cloro,Oxígeno,Hidrógeno,Sodio': { 
+            nombre: 'Hipoclorito de sodio', 
+            formula: 'NaClO',
+            tipo: 'Sal',
+            explicacion: 'Componente activo del blanqueador doméstico.'
+            },
+            'Argón,Flúor,Hidrógeno,Oxígeno': { 
+            nombre: 'Fluoruro de argón-hidrógeno', 
+            formula: 'HArF',
+            tipo: 'Compuesto noble',
+            explicacion: 'Uno de los pocos compuestos del argón descubiertos.'
+            },
+            'Potasio,Cromo,Oxígeno,Hidrógeno': { 
+            nombre: 'Cromato de potasio', 
+            formula: 'K₂CrO₄',
+            tipo: 'Sal',
+            explicacion: 'Pigmento amarillo y reactivo analítico.'
+            },
+            'Calcio,Carbono,Oxígeno,Hidrógeno': { 
+            nombre: 'Bicarbonato de calcio', 
+            formula: 'Ca(HCO₃)₂',
+            tipo: 'Sal',
+            explicacion: 'Responsable de la dureza temporal del agua.'
+            },
+            'Escandio,Oxígeno,Hidrógeno,Nitrógeno': { 
+            nombre: 'Nitrato de escandio', 
+            formula: 'Sc(NO₃)₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en investigación de materiales y catálisis.'
+            },
+            'Titanio,Oxígeno,Hidrógeno,Nitrógeno': { 
+            nombre: 'Nitruro de titanio', 
+            formula: 'TiN',
+            tipo: 'Cerámica',
+            explicacion: 'Recubrimiento dorado muy duro usado en herramientas.'
+            },
+            'Vanadio,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Metavanadato de potasio', 
+            formula: 'KVO₃',
+            tipo: 'Sal',
+            explicacion: 'Catalizador en procesos químicos industriales.'
+            },
+            'Cromo,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Cromato de potasio', 
+            formula: 'K₂CrO₄',
+            tipo: 'Sal',
+            explicacion: 'Pigmento amarillo y reactivo analítico.'
+            },
+            'Manganeso,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Permanganato de potasio', 
+            formula: 'KMnO₄',
+            tipo: 'Sal',
+            explicacion: 'Oxidante fuerte usado como desinfectante.'
+            },
+            'Hierro,Oxígeno,Hidrógeno,Sulfuro': { 
+            nombre: 'Pirita', 
+            formula: 'FeS₂',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como "oro de los tontos". Mineral de hierro.'
+            },
+            'Cobalto,Oxígeno,Hidrógeno,Aluminio': { 
+            nombre: 'Cobalto-aluminio', 
+            formula: 'CoAl₂O₄',
+            tipo: 'Pigmento',
+            explicacion: 'Pigmento azul cobalto usado en cerámica y vidrio.'
+            },
+            'Níquel,Oxígeno,Hidrógeno,Titanio': { 
+            nombre: 'Titanato de níquel', 
+            formula: 'NiTiO₃',
+            tipo: 'Pigmento',
+            explicacion: 'Pigmento amarillo usado en cerámica.'
+            },
+            'Cobre,Oxígeno,Hidrógeno,Sulfuro': { 
+            nombre: 'Calcocita', 
+            formula: 'Cu₂S',
+            tipo: 'Mineral',
+            explicacion: 'Mineral de cobre importante.'
+            },
+            'Zinc,Oxígeno,Hidrógeno,Sulfuro': { 
+            nombre: 'Esfalerita', 
+            formula: 'ZnS',
+            tipo: 'Mineral',
+            explicacion: 'Principal mineral de zinc.'
+            },
+            'Galio,Arsénico,Oxígeno,Hidrógeno': { 
+            nombre: 'Arseniuro de galio', 
+            formula: 'GaAs',
+            tipo: 'Semiconductor',
+            explicacion: 'Material semiconductor usado en electrónica.'
+            },
+            'Germanio,Oxígeno,Hidrógeno,Silicio': { 
+            nombre: 'Germanio-silicio', 
+            formula: 'GeSi',
+            tipo: 'Semiconductor',
+            explicacion: 'Aleación semiconductor usada en optoelectrónica.'
+            },
+            'Arsénico,Oxígeno,Hidrógeno,Calcio': { 
+            nombre: 'Arseniato de calcio', 
+            formula: 'Ca₃(AsO₄)₂',
+            tipo: 'Mineral',
+            explicacion: 'Mineral usado históricamente como pesticida.'
+            },
+            'Selenio,Oxígeno,Hidrógeno,Sodio': { 
+            nombre: 'Selenito de sodio', 
+            formula: 'Na₂SeO₃',
+            tipo: 'Sal',
+            explicacion: 'Fuente de selenio en suplementos nutricionales.'
+            },
+            'Bromo,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Bromato de potasio', 
+            formula: 'KBrO₃',
+            tipo: 'Sal',
+            explicacion: 'Usado como agente madurador en panadería.'
+            },
+            'Kriptón,Flúor,Oxígeno,Hidrógeno': { 
+            nombre: 'Fluoruro de kriptón', 
+            formula: 'KrF₂',
+            tipo: 'Compuesto noble',
+            explicacion: 'Uno de los pocos compuestos del kriptón.'
+            },
+            'Rubidio,Oxígeno,Hidrógeno,Cloro': { 
+            nombre: 'Cloruro de rubidio', 
+            formula: 'RbCl',
+            tipo: 'Sal',
+            explicacion: 'Usado en investigación bioquímica.'
+            },
+            'Estroncio,Oxígeno,Hidrógeno,Titanio': { 
+            nombre: 'Titanato de estroncio', 
+            formula: 'SrTiO₃',
+            tipo: 'Cerámica',
+            explicacion: 'Material dieléctrico usado en electrónica.'
+            },
+            'Itrio,Oxígeno,Hidrógeno,Bario': { 
+            nombre: 'YBa₂Cu₃O₇', 
+            formula: 'YBa₂Cu₃O₇',
+            tipo: 'Superconductor',
+            explicacion: 'Superconductor de alta temperatura.'
+            },
+            'Circonio,Oxígeno,Hidrógeno,Silicio': { 
+            nombre: 'Silicato de circonio', 
+            formula: 'ZrSiO₄',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como circón. Gema importante.'
+            },
+            'Niobio,Oxígeno,Hidrógeno,Estaño': { 
+            nombre: 'Niobio-estaño', 
+            formula: 'Nb₃Sn',
+            tipo: 'Superconductor',
+            explicacion: 'Superconductor usado en imanes.'
+            },
+            'Molibdeno,Oxígeno,Hidrógeno,Hierro': { 
+            nombre: 'Molibdenita', 
+            formula: 'MoS₂',
+            tipo: 'Mineral',
+            explicacion: 'Mineral de molibdeno y lubricante.'
+            },
+            'Tecnecio,Oxígeno,Hidrógeno,Radio': { 
+            nombre: 'Pertecnetato', 
+            formula: 'TcO₄⁻',
+            tipo: 'Radiofármaco',
+            explicacion: 'Usado en medicina nuclear.'
+            },
+            'Rutenio,Oxígeno,Hidrógeno,Cloro': { 
+            nombre: 'Cloruro de rutenio (III)', 
+            formula: 'RuCl₃',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador en procesos industriales.'
+            },
+            'Rodio,Oxígeno,Hidrógeno,Cloro': { 
+            nombre: 'Cloruro de rodio (III)', 
+            formula: 'RhCl₃',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador importante.'
+            },
+            'Paladio,Oxígeno,Hidrógeno,Carbono': { 
+            nombre: 'Acetato de paladio', 
+            formula: 'Pd(OCOCH₃)₂',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador en reacciones de acoplamiento.'
+            },
+            'Plata,Oxígeno,Hidrógeno,Nitrógeno': { 
+            nombre: 'Nitrato de plata', 
+            formula: 'AgNO₃',
+            tipo: 'Sal',
+            explicacion: 'Usado en fotografía y como antiséptico.'
+            },
+            'Cadmio,Oxígeno,Hidrógeno,Sulfuro': { 
+            nombre: 'Greenockita', 
+            formula: 'CdS',
+            tipo: 'Mineral',
+            explicacion: 'Mineral de cadmio y pigmento amarillo.'
+            },
+            'Indio,Oxígeno,Hidrógeno,Estaño': { 
+            nombre: 'Óxido de indio y estaño', 
+            formula: 'In₂O₃·SnO₂',
+            tipo: 'Conductor',
+            explicacion: 'Conductor transparente para pantallas.'
+            },
+            'Estaño,Oxígeno,Hidrógeno,Plomo': { 
+            nombre: 'Soldadura estaño-plomo', 
+            formula: 'Sn-Pb',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para soldadura en electrónica.'
+            },
+            'Antimonio,Oxígeno,Hidrógeno,Plomo': { 
+            nombre: 'Antimoniato de plomo', 
+            formula: 'Pb₃(SbO₄)₂',
+            tipo: 'Pigmento',
+            explicacion: 'Pigmento amarillo para pinturas.'
+            },
+            'Telurio,Oxígeno,Hidrógeno,Cadmio': { 
+            nombre: 'Telururo de cadmio', 
+            formula: 'CdTe',
+            tipo: 'Semiconductor',
+            explicacion: 'Material para paneles solares.'
+            },
+            'Yodo,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Yodato de potasio', 
+            formula: 'KIO₃',
+            tipo: 'Sal',
+            explicacion: 'Fuente de yodo en suplementos.'
+            },
+            'Xenón,Oxígeno,Hidrógeno,Flúor': { 
+            nombre: 'Fluoruro de xenón', 
+            formula: 'XeF₄',
+            tipo: 'Compuesto noble',
+            explicacion: 'Compuesto estable del xenón.'
+            },
+            'Cesio,Oxígeno,Hidrógeno,Antimonio': { 
+            nombre: 'Cesio-antimonio', 
+            formula: 'Cs₃Sb',
+            tipo: 'Fotocátodo',
+            explicacion: 'Material para tubos fotomultiplicadores.'
+            },
+            'Bario,Oxígeno,Hidrógeno,Titanio': { 
+            nombre: 'Titanato de bario', 
+            formula: 'BaTiO₃',
+            tipo: 'Cerámica',
+            explicacion: 'Material piezoeléctrico.'
+            },
+            'Lantano,Oxígeno,Hidrógeno,Níquel': { 
+            nombre: 'Lantano-níquel', 
+            formula: 'LaNi₅',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para almacenamiento de hidrógeno.'
+            },
+            'Cerio,Oxígeno,Hidrógeno,Zirconio': { 
+            nombre: 'Óxido de cerio y zirconio', 
+            formula: 'CeZrO₄',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador en convertidores catalíticos.'
+            },
+            'Praseodimio,Oxígeno,Hidrógeno,Níquel': { 
+            nombre: 'Praseodimio-níquel', 
+            formula: 'PrNi₅',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para imanes permanentes.'
+            },
+            'Neodimio,Oxígeno,Hidrógeno,Hierro': { 
+            nombre: 'Neodimio-hierro-boro', 
+            formula: 'Nd₂Fe₁₄B',
+            tipo: 'Imán',
+            explicacion: 'Material para imanes potentes.'
+            },
+            'Prometio,Oxígeno,Hidrógeno,Samario': { 
+            nombre: 'Prometio-samario', 
+            formula: 'Pm-Sm',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación nuclear.'
+            },
+            'Samario,Oxígeno,Hidrógeno,Cobalto': { 
+            nombre: 'Samario-cobalto', 
+            formula: 'SmCo₅',
+            tipo: 'Imán',
+            explicacion: 'Material para imanes de alta temperatura.'
+            },
+            'Europio,Oxígeno,Hidrógeno,Itrio': { 
+            nombre: 'Europio-itrio', 
+            formula: 'Y₂O₃:Eu³⁺',
+            tipo: 'Fósforo',
+            explicacion: 'Fósforo rojo para pantallas.'
+            },
+            'Gadolinio,Oxígeno,Hidrógeno,Galio': { 
+            nombre: 'Gadolinio-galio', 
+            formula: 'Gd₃Ga₅O₁₂',
+            tipo: 'Cristal',
+            explicacion: 'Cristal para resonancia magnética.'
+            },
+            'Terbio,Oxígeno,Hidrógeno,Disprosio': { 
+            nombre: 'Terbio-disprosio', 
+            formula: 'Tb-Dy',
+            tipo: 'Aleación',
+            explicacion: 'Aleación magnetostrictiva.'
+            },
+            'Disprosio,Oxígeno,Hidrógeno,Titanio': { 
+            nombre: 'Titanato de disprosio', 
+            formula: 'Dy₂Ti₂O₇',
+            tipo: 'Material',
+            explicacion: 'Material con hielo de espín.'
+            },
+            'Holmio,Oxígeno,Hidrógeno,Erbio': { 
+            nombre: 'Holmio-erbio', 
+            formula: 'Ho-Er',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación láser.'
+            },
+            'Erbio,Oxígeno,Hidrógeno,Itrio': { 
+            nombre: 'Erbio-itrio', 
+            formula: 'Y₂O₃:Er³⁺',
+            tipo: 'Láser',
+            explicacion: 'Material para láseres médicos.'
+            },
+            'Tulio,Oxígeno,Hidrógeno,Iterbio': { 
+            nombre: 'Tulio-iterbio', 
+            formula: 'Tm-Yb',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para fuentes de rayos X.'
+            },
+            'Iterbio,Oxígeno,Hidrógeno,Aluminio': { 
+            nombre: 'Iterbio-aluminio', 
+            formula: 'YbAl₃',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación.'
+            },
+            'Lutecio,Oxígeno,Hidrógeno,Tantalio': { 
+            nombre: 'Lutecio-tantalato', 
+            formula: 'LuTaO₄',
+            tipo: 'Material',
+            explicacion: 'Material para centelleadores.'
+            },
+            'Hafnio,Oxígeno,Hidrógeno,Nitrógeno': { 
+            nombre: 'Nitruro de hafnio', 
+            formula: 'HfN',
+            tipo: 'Cerámica',
+            explicacion: 'Recubrimiento duro.'
+            },
+            'Tantalio,Oxígeno,Hidrógeno,Nitrógeno': { 
+            nombre: 'Nitruro de tantalio', 
+            formula: 'TaN',
+            tipo: 'Cerámica',
+            explicacion: 'Material para electrónica.'
+            },
+            'Wolframio,Oxígeno,Hidrógeno,Carbono': { 
+            nombre: 'Carbonilo de wolframio', 
+            formula: 'W(CO)₆',
+            tipo: 'Complejo',
+            explicacion: 'Usado en deposición química.'
+            },
+            'Renio,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Perrenato de potasio', 
+            formula: 'KReO₄',
+            tipo: 'Sal',
+            explicacion: 'Compuesto de investigación.'
+            },
+            'Osmio,Oxígeno,Hidrógeno,Potasio': { 
+            nombre: 'Osmiato de potasio', 
+            formula: 'K₂[OsO₄(OH)₂]',
+            tipo: 'Complejo',
+            explicacion: 'Reactivo para dihidroxilación.'
+            },
+            'Iridio,Oxígeno,Hidrógeno,Cloro': { 
+            nombre: 'Cloruro de iridio (III)', 
+            formula: 'IrCl₃',
+            tipo: 'Catalizador',
+            explicacion: 'Catalizador industrial.'
+            },
+            'Platino,Oxígeno,Hidrógeno,Nitrógeno': { 
+            nombre: 'Cisplatino', 
+            formula: 'PtCl₂(NH₃)₂',
+            tipo: 'Fármaco',
+            explicacion: 'Agente quimioterapéutico.'
+            },
+            'Oro,Oxígeno,Hidrógeno,Cianuro': { 
+            nombre: 'Cianuro de oro', 
+            formula: 'AuCN',
+            tipo: 'Complejo',
+            explicacion: 'Usado en galvanoplastia.'
+            },
+            'Mercurio,Oxígeno,Hidrógeno,Azufre': { 
+            nombre: 'Cinabrio', 
+            formula: 'HgS',
+            tipo: 'Mineral',
+            explicacion: 'Principal mineral de mercurio.'
+            },
+            'Talio,Oxígeno,Hidrógeno,Sulfuro': { 
+            nombre: 'Talio(I) sulfato', 
+            formula: 'Tl₂SO₄',
+            tipo: 'Sal',
+            explicacion: 'Compuesto muy tóxico.'
+            },
+            'Plomo,Oxígeno,Hidrógeno,Carbono': { 
+            nombre: 'Carbonato de plomo', 
+            formula: 'PbCO₃',
+            tipo: 'Mineral',
+            explicacion: 'Conocido como cerusita.'
+            },
+            'Bismuto,Oxígeno,Hidrógeno,Oxígeno': { 
+            nombre: 'Óxido de bismuto', 
+            formula: 'Bi₂O₃',
+            tipo: 'Pigmento',
+            explicacion: 'Usado en cosméticos.'
+            },
+            'Polonio,Oxígeno,Hidrógeno,Radio': { 
+            nombre: 'Polonio-radio', 
+            formula: 'Po-Ra',
+            tipo: 'Aleación',
+            explicacion: 'Aleación radiactiva para investigación.'
+            },
+            'Astato,Oxígeno,Hidrógeno,Yodo': { 
+            nombre: 'Astato-yodo', 
+            formula: 'AtI',
+            tipo: 'Interhalógeno',
+            explicacion: 'Compuesto radiactivo raro.'
+            },
+            'Radio,Oxígeno,Hidrógeno,Uranio': { 
+            nombre: 'Radio-uranio', 
+            formula: 'Ra-U',
+            tipo: 'Aleación',
+            explicacion: 'Aleación radiactiva histórica.'
+            },
+            'Actinio,Oxígeno,Hidrógeno,Torio': { 
+            nombre: 'Actinio-torio', 
+            formula: 'Ac-Th',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación nuclear.'
+            },
+            'Torio,Oxígeno,Hidrógeno,Uranio': { 
+            nombre: 'Torio-uranio', 
+            formula: 'Th-U',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para combustibles nucleares.'
+            },
+            'Protactinio,Oxígeno,Hidrógeno,Uranio': { 
+            nombre: 'Protactinio-uranio', 
+            formula: 'Pa-U',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación.'
+            },
+            'Uranio,Oxígeno,Hidrógeno,Plutonio': { 
+            nombre: 'Uranio-plutonio', 
+            formula: 'U-Pu',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para combustibles nucleares mixtos.'
+            },
+            'Neptunio,Oxígeno,Hidrógeno,Plutonio': { 
+            nombre: 'Neptunio-plutonio', 
+            formula: 'Np-Pu',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación nuclear.'
+            },
+            'Plutonio,Oxígeno,Hidrógeno,Americio': { 
+            nombre: 'Plutonio-americio', 
+            formula: 'Pu-Am',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para detectores de humo.'
+            },
+            'Americio,Oxígeno,Hidrógeno,Curio': { 
+            nombre: 'Americio-curio', 
+            formula: 'Am-Cm',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación.'
+            },
+            'Curio,Oxígeno,Hidrógeno,Berkelio': { 
+            nombre: 'Curio-berkelio', 
+            formula: 'Cm-Bk',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación nuclear.'
+            },
+            'Berkelio,Oxígeno,Hidrógeno,Californio': { 
+            nombre: 'Berkelio-californio', 
+            formula: 'Bk-Cf',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para fuentes de neutrones.'
+            },
+            'Californio,Oxígeno,Hidrógeno,Einstenio': { 
+            nombre: 'Californio-einstenio', 
+            formula: 'Cf-Es',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación avanzada.'
+            },
+            'Einstenio,Oxígeno,Hidrógeno,Fermio': { 
+            nombre: 'Einstenio-fermio', 
+            formula: 'Es-Fm',
+            tipo: 'Aleación',
+            explicacion: 'Aleación de elementos superpesados.'
+            },
+            'Fermio,Oxígeno,Hidrógeno,Mendelevio': { 
+            nombre: 'Fermio-mendelevio', 
+            formula: 'Fm-Md',
+            tipo: 'Aleación',
+            explicacion: 'Aleación para investigación teórica.'
+            },
+            'Mendelevio,Oxígeno,Hidrógeno,Nobelio': { 
+            nombre: 'Mendelevio-nobelio', 
+            formula: 'Md-No',
+            tipo: 'Aleación',
+            explicacion: 'Aleación de elementos sintéticos.'
+            },
+            'Nobelio,Oxígeno,Hidrógeno,Laurencio': { 
+            nombre: 'Nobelio-laurencio', 
+            formula: 'No-Lr',
+            tipo: 'Aleación',
+            explicacion: 'Aleación de los últimos actínidos.'
+            },
+            'Laurencio,Oxígeno,Hidrógeno,Rutherfordio': { 
+            nombre: 'Laurencio-rutherfordio', 
+            formula: 'Lr-Rf',
+            tipo: 'Aleación',
+            explicacion: 'Aleación transactínida para investigación.'
+            }
+        
+            }});
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarCompuestos();
+  }, []);
+
+  return { compuestos, cargando, error };
+};
+
+export default useCompuestos;

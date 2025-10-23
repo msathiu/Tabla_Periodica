@@ -1,0 +1,356 @@
+/* MobileTable.css - Breakpoint actualizado */
+
+/* Contenedor principal */
+.mobile-container {
+  padding: 10px;
+  max-width: 100%;
+  display: none;
+}
+
+
+/* MOSTRAR solo en móviles - Breakpoint consistente */
+@media (max-width: 832px) {
+  .mobile-container {
+    display: block;
+  }
+}
+
+/* Contenedor para tabla normal - OCULTAR en móviles */
+.table-container {
+  display: block;
+}
+
+@media (max-width: 832px) {
+  .table-container {
+    display: none;
+  }
+}
+
+/* Mejoras para tablets pequeñas */
+@media (max-width: 900px) and (min-width: 833px) {
+  .mobile-container {
+    display: none;
+  }
+  
+  .table-container {
+    display: block;
+  }
+}
+
+/* Botones de grupo */
+.mobile-group-button {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 5px 0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  transition: all 0.3s ease;
+}
+
+/* COLORES ACTUALIZADOS PARA BOTONES */
+.mobile-group-button.alkali-metal {
+  background: #D85097;
+  border-left: 5px solid #D85097;
+}
+.mobile-group-button.alkaline-earth-metal {
+  background: #F3921A;
+  border-left: 5px solid #F3921A;
+}
+.mobile-group-button.transition-metal {
+  background: #FCBF0A;
+  border-left: 5px solid #FCBF0A;
+}
+.mobile-group-button.otros-metales {
+  background: #89BD24;
+  border-left: 5px solid #89BD24;
+}
+.mobile-group-button.metalloid {
+  background: #2AB4E9;
+  border-left: 5px solid #2AB4E9;
+}
+.mobile-group-button.non-metal {
+  background: #098136;
+  border-left: 5px solid #098136;
+}
+.mobile-group-button.halogen {
+  background: #292E6A;
+  border-left: 5px solid #292E6A;
+}
+.mobile-group-button.noble-gas {
+  background: #664595;
+  border-left: 5px solid #664595;
+}
+.mobile-group-button.lantanidos {
+  background: #A675B1;
+  border-left: 5px solid #A675B1;
+}
+.mobile-group-button.actinidos {
+  background: #9A9999;
+  border-left: 5px solid #9A9999;
+}
+
+/* Efecto hover para todos los botones */
+.mobile-group-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  filter: brightness(1.1);
+}
+
+.mobile-group-icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.mobile-group-arrow {
+  margin-left: auto;
+  font-size: 0.9rem;
+}
+
+/* Grid de elementos - FONDO TRANSPARENTE */
+.mobile-elements-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 0 0 8px 8px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Elementos individuales - TAMAÑOS MEJORADOS */
+.mobile-element {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 2px solid;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #333;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* SÍMBOLO MÁS GRANDE Y MEJOR PROPORCIONADO */
+.element-symbol {
+  font-size: 2rem !important;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+/* Número atómico pequeño */
+.element-number {
+  font-size: 1rem !important;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  font-weight: bold;
+  color: white;
+}
+
+.mobile-element:hover {
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Tooltip similar al original - MEJORADO */
+.mobile-element::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.8rem !important;
+  padding: 1px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: bold;
+  border-radius: 2px;
+  margin: 0 2px;
+}
+
+.mobile-element:hover::after {
+  opacity: 1;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* COLORES ACTUALIZADOS PARA ELEMENTOS */
+.mobile-element.alkali-metal {
+  border-color: #D85097;
+  background-color: #D8509720;
+}
+.mobile-element.alkali-metal:hover {
+  background-color: #D85097;
+  color: white;
+}
+
+.mobile-element.alkaline-earth-metal {
+  border-color: #F3921A;
+  background-color: #F3921A20;
+}
+.mobile-element.alkaline-earth-metal:hover {
+  background-color: #F3921A;
+  color: white;
+}
+
+.mobile-element.transition-metal {
+  border-color: #FCBF0A;
+  background-color: #FCBF0A20;
+}
+.mobile-element.transition-metal:hover {
+  background-color: #FCBF0A;
+  color: white;
+}
+
+.mobile-element.otros-metales {
+  border-color: #89BD24;
+  background-color: #89BD2420;
+}
+.mobile-element.otros-metales:hover {
+  background-color: #89BD24;
+  color: white;
+}
+
+.mobile-element.metalloid {
+  border-color: #2AB4E9;
+  background-color: #2AB4E920;
+}
+.mobile-element.metalloid:hover {
+  background-color: #2AB4E9;
+  color: white;
+}
+
+.mobile-element.non-metal {
+  border-color: #098136;
+  background-color: #09813620;
+}
+.mobile-element.non-metal:hover {
+  background-color: #098136;
+  color: white;
+}
+
+.mobile-element.halogen {
+  border-color: #292E6A;
+  background-color: #292E6A20;
+}
+.mobile-element.halogen:hover {
+  background-color: #292E6A;
+  color: white;
+}
+
+.mobile-element.noble-gas {
+  border-color: #664595;
+  background-color: #66459520;
+}
+.mobile-element.noble-gas:hover {
+  background-color: #664595;
+  color: white;
+}
+
+.mobile-element.lantanidos {
+  border-color: #A675B1;
+  background-color: #A675B120;
+}
+.mobile-element.lantanidos:hover {
+  background-color: #A675B1;
+  color: white;
+}
+
+.mobile-element.actinidos {
+  border-color: #9A9999;
+  background-color: #9A999920;
+}
+.mobile-element.actinidos:hover {
+  background-color: #9A9999;
+  color: white;
+}
+
+.mobile-element.hidrogeno {
+  border-color: #098136;
+  background: repeating-linear-gradient(
+    45deg,
+    #09813620,
+    #09813620 5px,
+    #ffffff20 5px,
+    #ffffff20 10px
+  );
+}
+.mobile-element.hidrogeno:hover {
+  background-color: #098136;
+  color: white;
+}
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 831px) {
+  .mobile-elements-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  
+  .mobile-group-button {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .element-symbol {
+    font-size: 2rem !important;
+  }
+  
+  .element-number {
+    font-size: 1rem !important;
+  }
+  
+  .mobile-element::after {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-elements-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+  
+  .mobile-group-button {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .element-symbol {
+    font-size: 2rem !important;
+  }
+  
+  .element-number {
+    font-size: 1rem !important;
+    top: 2px;
+    left: 3px;
+  }
+}
+

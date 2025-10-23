@@ -1,0 +1,856 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+/* Estructura principal */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #CEF4F7 url('/imagenes/fondo_tabla_periodica.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* HEADER CONSISTENTE EN TODAS LAS VISTAS */
+.app-header {
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  padding: 15px 0;
+  z-index: 10;
+}
+
+.header-fixed-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Asegurar que el header-content ocupe todo el ancho disponible */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* Logo siempre a la izquierda en desktop */
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-mincyt {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo-mincyt:hover {
+  transform: scale(1.05);
+}
+
+/* Menú principal - Siempre a la derecha en desktop */
+.menu-principal {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.menu-item {
+  padding: 8px 16px;
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE) !important;
+  color: white !important;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Fredoka', sans-serif !important;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+}
+
+.menu-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  filter: brightness(1.1);
+}
+
+.menu-item.activo {
+  background: linear-gradient(90deg, #ff9800, #ffeb3b);
+  color: #17385c;
+  box-shadow: 0 0 12px rgba(255, 152, 0, 0.6);
+}
+
+/* CONTENEDOR PRINCIPAL CORREGIDO */
+.app-container {
+  width: 100%;
+  max-width: 1600px; /* AÑADIR ESTA LÍNEA CRUCIAL */
+  margin: 0 auto;
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: transparent; 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenido principal con más espacio */
+.main-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Título principal con más espacio */
+.titulo-principal {
+  font-family: 'Fredoka', sans-serif !important;
+  font-size: 3.9rem;
+  text-align: center;
+  width: 100%;
+  margin: 25px 0 30px 0;
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: aparecer 1.2s ease-out;
+  position: relative;
+  font-weight: 800;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  line-height: 1.2;
+}
+
+.titulo-principal::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 3px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE);
+  border-radius: 2px;
+  animation: expandUnderline 1.2s ease-out forwards;
+}
+
+/* Contenedor de la tabla con espacio */
+.tabla-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  background-color: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* TABLA MÁS GRANDE en pantalla completa */
+.tabla-periodica {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(60px, 70px));
+  gap: 6px !important;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: transparent;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.element {
+  width: 90%;
+  aspect-ratio: 1/1;
+  height: 95% ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 2px solid;
+  border-radius: 6px;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  backdrop-filter: blur(4px);
+  color: #1B3059 !important;
+}
+
+.element:hover {
+  transform: scale(1.2) translateY(-5px);
+  z-index: 100;
+  color: #ffffff !important;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+/* Tooltip interno */
+.element::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.6rem;
+  padding: 1px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 2px;
+  margin: 0 2px;
+}
+
+.element:hover::after {
+  opacity: 1;
+}
+
+/* Efecto de color completo al hacer hover */
+.element:hover {
+  background-color: var(--hover-color);
+  border-color: transparent !important;
+  color: white;
+}
+
+/* Colores para cada categoría */
+.non-metal {
+  border-color: #098136;
+  background-color: #09813620;
+  --hover-color: #098136;
+}
+
+.transition-metal {
+  border-color: #FCBF0A;
+  background-color: #FCBF0A20;
+  --hover-color: #FCBF0A;
+}
+
+.alkali-metal {
+  border-color: #D85097;
+  background-color: #D8509720;
+  --hover-color: #D85097;
+}
+
+.alkaline-earth-metal {
+  border-color: #F3921A;
+  background-color: #F3921A20;
+  --hover-color: #F3921A;
+}
+
+.metalloid {
+  border-color: #2AB4E9;
+  background-color: #2AB4E920;
+  --hover-color: #2AB4E9;
+}
+
+.otros-metales {
+  border-color: #89BD24;
+  background-color: #89BD2420;
+  --hover-color: #89BD24;
+}
+
+.noble-gas {
+  border-color: #664595;
+  background-color: #66459520;
+  --hover-color: #664595;
+}
+
+.halogen {
+  border-color: #292E6A;
+  background-color: #292E6A20;
+  --hover-color: #292E6A;
+}
+
+.lantanidos {
+  border-color: #A675B1;
+  background-color: #A675B120;
+  --hover-color: #A675B1;
+}
+
+.actinidos {
+  border-color: #9A9999;
+  background-color: #9A999920;
+  --hover-color: #9A9999;
+}
+
+.hidrogeno {
+  border-color: #098136;
+  background: repeating-linear-gradient(
+    45deg,
+    #09813620,
+    #09813620 5px,
+    #ffffff20 5px,
+    #ffffff20 10px
+  );
+}
+.hidrogeno:hover { --hover-color: #098136; }
+
+/* Elemento resaltado */
+.element.resaltado {
+  background-color: var(--hover-color) !important;
+  color: white !important;
+  border-color: transparent !important;
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* CONTENEDOR DE TIERRAS RARAS CORREGIDO - SIN ESPACIO */
+.tierras-raras-container {
+  grid-column: 4 / span 15;
+  display: grid;
+  grid-template-columns: repeat(15, minmax(40px, 1fr));
+  gap: 4px;
+  margin-top: 2px;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Elementos de tierras raras */
+.tierras-raras-container > .element {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 60px;
+  margin: 0 auto;
+}
+
+/* Footer elegante con gradiente */
+.app-footer {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(5px);
+  color: white !important;
+  text-align: center;
+  font-size: 1rem;
+  padding: 25px 0;
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  
+  /* Línea superior con gradiente - muy delgada y elegante */
+  border-top: 2px solid;
+  border-image: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE) 1;
+  box-shadow: none; /* Sin sombras laterales */
+}
+
+.footer-content {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.footer-content p {
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.8px;
+  
+  /* Texto con gradiente */
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-content a {
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 6px;
+  margin: 0 5px;
+  
+  /* Enlaces con gradiente */
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px solid transparent;
+}
+
+.footer-content a:hover {
+  /* Al hacer hover, el gradiente va en el fondo y el texto es blanco */
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE);
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: white;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Animaciones */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandUnderline {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    width: 50%;
+    opacity: 1;
+  }
+}
+
+/* Loading screen */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.loading-text {
+  font-family: 'Fredoka', sans-serif !important;
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #1e3a8a, #10b981, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: aparecer 1.2s ease-out;
+  font-weight: 800;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+.loading-bar-container {
+  width: 250px;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #1e3a8a, #10b981, #7c3aed);
+  animation: loading 2s infinite ease-in-out;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ========== RESPONSIVE MEJORADO ========== */
+
+/* Pantallas grandes (desktop) */
+@media (min-width: 1201px) {
+  .header-fixed-container {
+    max-width: 1600px;
+  }
+  
+  .app-container {
+    max-width: 1600px;
+  }
+  
+  .footer-content {
+    max-width: 1600px;
+  }
+}
+
+/* Tablets grandes */
+@media (max-width: 1200px) {
+  .app-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+  
+  .header-fixed-container {
+    padding: 0 15px;
+  }
+  
+  .tabla-periodica {
+    grid-template-columns: repeat(18, minmax(50px, 60px));
+    gap: 4px;
+    padding: 15px;
+  }
+  
+  .element {
+    height: 55px;
+    font-size: 14px;
+  }
+  
+  .titulo-principal {
+    font-size: 2.2rem;
+    margin: 20px 0 25px 0;
+  }
+  
+  .menu-principal {
+    gap: 8px;
+  }
+  
+  .menu-item {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .tabla-periodica {
+    grid-template-columns: repeat(14, minmax(45px, 50px));
+    gap: 3px;
+    padding: 12px;
+  }
+  
+  .element {
+    height: 50px;
+    font-size: 13px;
+  }
+  
+  .element::after {
+    font-size: 0.5rem;
+    bottom: 2px;
+  }
+  
+  .tierras-raras-container {
+    grid-template-columns: repeat(15, minmax(35px, 1fr));
+    margin-top: 1px;
+  }
+  
+  .titulo-principal {
+    font-size: 2rem;
+    margin: 18px 0 22px 0;
+  }
+}
+
+/* Tablets pequeñas */
+@media (max-width: 900px) {
+  .tabla-periodica {
+    grid-template-columns: repeat(12, minmax(40px, 45px));
+    padding: 10px;
+  }
+  
+  .element {
+    height: 45px;
+    font-size: 12px;
+  }
+  
+  .titulo-principal {
+    font-size: 1.8rem;
+    margin: 15px 0 20px 0;
+  }
+  
+  .menu-principal {
+    gap: 6px;
+  }
+  
+  .menu-item {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+}
+/* VISTA MÓVIL */
+@media (max-width: 832px) {
+  .tabla-container {
+    display: none;
+  }
+  
+  /* HEADER REORGANIZADO - LOGO IZQUIERDA, MENÚ DERECHA */
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+  }
+  
+  .logo-container {
+    order: 1;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  
+  .menu-principal {
+    order: 2;
+    justify-content: flex-end;
+    width: auto;
+    gap: 8px;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+  
+  .logo-mincyt {
+    height: 45px;
+  }
+  
+  .menu-item {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .app-container {
+    padding: 15px 10px;
+    max-width: 100%;
+  }
+  
+  .app-header {
+    padding: 15px 0;
+  }
+  
+  .titulo-principal {
+    font-size: 1.8rem;
+    margin: 20px 0 25px 0;
+  }
+  
+  .app-footer {
+    padding: 15px 0;
+    font-size: 0.8rem;
+    margin-top: 20px;
+  }
+  
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 12px 8px;
+    max-width: 100%;
+  }
+  
+  .header-fixed-container {
+    padding: 0 10px;
+  }
+  
+  .titulo-principal {
+    font-size: 1.6rem;
+    margin: 15px 0 20px 0;
+  }
+  
+  .menu-item {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    min-width: 140px;
+  }
+  
+  .logo-mincyt {
+    height: 40px;
+  }
+  
+  .app-footer {
+    font-size: 0.75rem;
+    padding: 12px 0;
+    margin-top: 15px;
+  }
+  
+  .header-content {
+    gap: 12px;
+  }
+  
+  .menu-principal {
+    gap: 6px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+  .app-container {
+    padding: 10px 5px;
+    max-width: 100%;
+  }
+  
+  .header-fixed-container {
+    padding: 0 8px;
+  }
+  
+  .menu-item {
+    padding: 7px 14px;
+    font-size: 0.75rem;
+    min-width: 130px;
+  }
+  
+  .logo-mincyt {
+    height: 35px;
+  }
+  
+  .menu-principal {
+    gap: 4px;
+  }
+}
+
+/* Pantallas muy grandes */
+@media (min-width: 1800px) {
+  .header-fixed-container {
+    max-width: 1800px;
+  }
+  
+  .app-container {
+    max-width: 1800px;
+  }
+  
+  .footer-content {
+    max-width: 1800px;
+  }
+  
+  .tabla-periodica {
+    grid-template-columns: repeat(18, minmax(70px, 80px));
+  }
+  
+  .element {
+    height: 75px;
+    font-size: 18px;
+  }
+}
+/* Animación de carga mejorada */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: transparent;
+  font-family: 'Fredoka', sans-serif !important;
+}
+
+.loading-content {
+  text-align: center;
+  animation: aparecer 3s ease-out;
+}
+
+.munequita-imagen {
+  width: 400px !important; /* Más grande */
+  height: 400p !important; /* Más grande */
+  margin: 0 auto 30px;
+  animation: flotar 6s ease-in-out infinite, latido 4s ease-in-out infinite; /* Más lento */
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
+  object-fit: contain;
+}
+
+.loading-text {
+  font-size: 3rem; /* Más grande */
+  background:linear-gradient(90deg, #1D4088, #399E85, #6C4BDE) ;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: brillo 6s linear infinite; /* Más lento */
+  font-weight: 800;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  margin-bottom: 25px;
+  letter-spacing: 3px;
+}
+
+.frase-aventura {
+  font-size: 2.2rem; /* Más grande */
+  color: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE) !important;
+  margin-bottom: 50px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+  animation: latido 6s ease-in-out infinite; /* Más lento */
+  font-weight: 700;
+}
+
+.loading-bar-container {
+  width: 400px; /* Más ancha */
+  height: 12px; /* Más gruesa */
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #1D4088, #399E85, #6C4BDE) ;
+  background-size: 200% auto;
+  animation: loading 6s infinite linear, brillo 3s linear infinite; /* Más lento */
+  border-radius: 6px;
+}
+
+/* Animaciones más lentas */
+@keyframes flotar {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  25% { 
+    transform: translateY(-20px) rotate(3deg); 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(0deg); 
+  }
+  75% { 
+    transform: translateY(-20px) rotate(-3deg); 
+  }
+}
+
+@keyframes latido {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.08); 
+    opacity: 0.95; 
+  }
+}
+
+@keyframes brillo {
+  0% { 
+    background-position: 0% center; 
+  }
+  100% { 
+    background-position: 200% center; 
+  }
+}
+
+@keyframes loading {
+  0% { 
+    transform: translateX(-100%); 
+  }
+  100% { 
+    transform: translateX(100%); 
+  }
+}
+
+/* Animación de aparición más lenta */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
