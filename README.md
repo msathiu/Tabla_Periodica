@@ -53,10 +53,11 @@ npm run dev
 Para generar una versión optimizada de la aplicación para despliegue:
 
 
-
 npm run build
 # o si usas yarn
 # yarn build
+```
+
 🤝 Contribuciones
 Las contribuciones son bienvenidas. Si deseas colaborar con el desarrollo de esta herramienta:
 
