@@ -58,21 +58,20 @@ npm run build
 # yarn build
 ```
 
-🤝 Contribuciones
+## 🤝 Contribuciones
 Las contribuciones son bienvenidas. Si deseas colaborar con el desarrollo de esta herramienta:
 
-Haz un Fork de este repositorio.
+* Haz un Fork de este repositorio.
 
-Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
+* Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
 
-Realiza tus cambios y haz commit (git commit -m 'feat: añadir nueva funcionalidad X').
+* Realiza tus cambios y haz commit (git commit -m 'feat: añadir nueva funcionalidad X').
 
-Sube la rama (git push origin feature/nueva-funcionalidad).
+* Sube la rama (git push origin feature/nueva-funcionalidad).
 
-Abre un Pull Request explicando los cambios realizados.
+* Abre un Pull Request explicando los cambios realizados.
 
-📧 Contacto
-msathiu - msathiu@gmail.com
+## 📧 Contacto
 Para preguntas o comentarios sobre el proyecto, puedes contactar a:
 
-msathiu - msathiu@gmail.com
+* msathiu - msathiu@gmail.com
