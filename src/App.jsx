@@ -218,6 +218,7 @@ function App() {
           <p>
             © {new Date().getFullYear()} Tabla Periódica Interactiva - MINCyT Venezuela | 
             Desarrollado por: Maeva Puente | 
+            
             <a href="https://mincyt.gob.ve" target="_blank" rel="noopener noreferrer">
                Ministerio del Poder Popular para Ciencia y Tecnología
             </a>
