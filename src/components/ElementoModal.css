@@ -343,6 +343,7 @@
   font-size: 0.95rem;
   margin-bottom: 10px;
   color: #444;
+  text-align: justify;
 }
 
 .modal-info-list {

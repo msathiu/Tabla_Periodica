@@ -92,7 +92,7 @@ const Juegos = ({ elementos, onVolverATabla }) => {
   const juegosDisponibles = [
     { 
       id: 1, 
-      nombre: "Conociendo la tabla Periódica", 
+      nombre: "Conociendo la tabla periódica", 
       descripcion: "Pon a prueba tus conocimientos sobre química",
       componente: QuizTablaPeriodica,
       imagen: "/imagenes/quiz.png"
