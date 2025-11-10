@@ -129,7 +129,7 @@ function App() {
                 className={`menu-item ${seccionActual === 'tabla' ? 'activo' : ''}`}
                 onClick={() => setSeccionActual('tabla')}
               >
-                Tabla Periódica
+                Tabla periódica
               </button>
               <button 
                 className={`menu-item ${seccionActual === 'juegos' ? 'activo' : ''}`}

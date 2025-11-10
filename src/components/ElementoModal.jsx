@@ -13,8 +13,8 @@ const categoryToClass = {
   'polyatomic-nonmetal': 'modal-non-metal',
   'diatomic-nonmetal': 'modal-halogen',
   'noble-gas': 'modal-noble-gas',
-  'lanthanide': 'modal-lantanidos',        // 🔹 CORREGIDO: 'modal-lantanidos'
-  'actinide': 'modal-actinidos',           // 🔹 CORREGIDO: 'modal-actinidos'
+  'lanthanide': 'modal-lantanidos',        //  CORREGIDO: 'modal-lantanidos'
+  'actinide': 'modal-actinidos',           //  CORREGIDO: 'modal-actinidos'
   'unknown': 'modal-desconocido',
   '': 'modal-desconocido',
   'n/a': 'modal-desconocido'
@@ -29,8 +29,8 @@ const categoryToSpanish = {
   'polyatomic-nonmetal': 'No metal',
   'diatomic-nonmetal': 'No metal',
   'noble-gas': 'Gas noble',
-  'lanthanide': 'Lantánido',               // 🔹 CORREGIDO: 'Lantánido'
-  'actinide': 'Actínido',                  // 🔹 CORREGIDO: 'Actínido'
+  'lanthanide': 'Lantánido',               //  CORREGIDO: 'Lantánido'
+  'actinide': 'Actínido',                  //  CORREGIDO: 'Actínido'
   'unknown': 'Desconocido',
   '': 'Desconocido',
   'n/a': 'Desconocido'
@@ -76,7 +76,7 @@ const categoryToSpanish = {
               <li><strong>Masa atómica:</strong> {elemento.atomic_mass || '—'}</li>
               <li><strong>Número atómico:</strong> {elemento.number || '—'}</li>
               <li><strong>Config. electrónica:</strong> {elemento.electronConfiguration || '—'}</li>
-              <li><strong>Clasificación:</strong> {elemento.category || 'Desconocido'}</li>
+              
             </ul>
           </div>
         </div>
