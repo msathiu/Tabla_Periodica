@@ -214,7 +214,7 @@ const preguntas = [
       explicacion: "La tabla periódica organiza a los elementos químicos de manera sistemática y lógica, lo que la convierte en una herramienta fundamental en la química."
     },
     {
-      pregunta: "¿Qué nos indica el 'número atómico' de un elemento?",
+      pregunta: "¿Qué nos indica el número atómico de un elemento?",
       opciones: [
         "La cantidad de electrones que tiene ese átomo.",
         "La cantidad de neutrones del núcleo.",
