@@ -199,9 +199,14 @@ const QuizTablaPeriodica = ({ elementos, onVolverAJuegos, onVolverATabla }) => {
   const [mostrarExplicacion, setMostrarExplicacion] = useState(false);
   const [estadoQuimi, setEstadoQuimi] = useState('');
   const [datosQuimi, setDatosQuimi] = useState(null);
+  
+  // Nuevos estados para preguntas aleatorias
+  const [preguntasAleatorias, setPreguntasAleatorias] = useState([]);
+  const [preguntasUsadas, setPreguntasUsadas] = useState([]);
+  const [totalPreguntas, setTotalPreguntas] = useState(0);
 
-
-const preguntas = [
+  // Preguntas originales (base de datos completa)
+  const preguntasBase = [
     {
       pregunta: "¿Cuál de las siguientes afirmaciones describe mejor la tabla periódica de los elementos?",
       opciones: [
@@ -240,7 +245,7 @@ const preguntas = [
       pregunta: "Las filas horizontales de la tabla periódica se conocen como...",
       opciones: ["período", "grupos", "familias", "series"],
       respuestaCorrecta: 0,
-      explicacion: "Las filas horizontales en la tabla periódica se llaman períodos. "
+      explicacion: "Las filas horizontales en la tabla periódica se llaman períodos."
     },
     {
       pregunta: "Un elemento con 11 protones en su núcleo es un metal alcalino perteneciente al grupo y período:",
@@ -295,54 +300,107 @@ const preguntas = [
         "35"
       ],
       respuestaCorrecta: 1,
-      explicacion: "El bromo pertenece al grupo de los halógenos (Grupo 17), por lo que tiene 7 electrones de valencia. "
+      explicacion: "El bromo pertenece al grupo de los halógenos (Grupo 17), por lo que tiene 7 electrones de valencia."
     }
-  ];  
-  
+  ];
 
+  // Función para seleccionar preguntas aleatorias
+  const seleccionarPreguntasAleatorias = (cantidad = 10) => {
+    // Copiar el array de preguntas base
+    const preguntasCopia = [...preguntasBase];
+    const seleccionadas = [];
+    
+    // Si hay menos preguntas que la cantidad solicitada, usar todas
+    const limite = Math.min(cantidad, preguntasCopia.length);
+    
+    // Seleccionar preguntas aleatorias sin repetir
+    for (let i = 0; i < limite; i++) {
+      const indiceAleatorio = Math.floor(Math.random() * preguntasCopia.length);
+      seleccionadas.push(preguntasCopia[indiceAleatorio]);
+      preguntasCopia.splice(indiceAleatorio, 1); // Remover para no repetir
+    }
+    
+    return seleccionadas;
+  };
 
-// Reemplaza completamente la función manejarRespuesta en el Quiz:
-const manejarRespuesta = (opcionIndex) => {
-  if (respuestaSeleccionada !== null) return;
-  
-  setRespuestaSeleccionada(opcionIndex);
-  
-  // Mostrar si la respuesta es correcta o incorrecta
-  const esCorrecta = opcionIndex === preguntas[preguntaActual].respuestaCorrecta;
-  if (esCorrecta) {
-    setPuntuacion(puntuacion + 1);
-    setEstadoQuimi('correcto');
-  } else {
-    setVidas(vidas - 1);
-    setEstadoQuimi('incorrecto');
-  }
-  
-  // Mostrar la explicación después de 1 segundo
-  setTimeout(() => {
-    setMostrarExplicacion(true);
+  // Función para obtener una nueva pregunta aleatoria
+  const obtenerNuevaPreguntaAleatoria = () => {
+    // Preguntas disponibles (no usadas aún)
+    const preguntasDisponibles = preguntasBase.filter((_, index) => 
+      !preguntasUsadas.includes(index)
+    );
     
- 
-   
+    // Si no hay preguntas disponibles, reiniciar el juego o usar todas
+    if (preguntasDisponibles.length === 0) {
+      setJuegoTerminado(true);
+      return null;
+    }
     
-    // Avanzar a la siguiente pregunta después de 5 segundos en total
+    // Seleccionar una pregunta aleatoria de las disponibles
+    const indiceAleatorio = Math.floor(Math.random() * preguntasDisponibles.length);
+    const preguntaSeleccionada = preguntasDisponibles[indiceAleatorio];
+    
+    // Encontrar el índice original en preguntasBase
+    const indiceOriginal = preguntasBase.findIndex(p => 
+      p.pregunta === preguntaSeleccionada.pregunta
+    );
+    
+    // Marcar como usada
+    setPreguntasUsadas(prev => [...prev, indiceOriginal]);
+    
+    return preguntaSeleccionada;
+  };
+
+  // Inicializar preguntas aleatorias al cargar el componente
+  useEffect(() => {
+    // Seleccionar 10 preguntas aleatorias al inicio
+    const preguntasIniciales = seleccionarPreguntasAleatorias(10);
+    setPreguntasAleatorias(preguntasIniciales);
+    setTotalPreguntas(preguntasIniciales.length);
+  }, []);
+
+  // Manejar respuesta (MODIFICADA para usar preguntasAleatorias)
+  const manejarRespuesta = (opcionIndex) => {
+    if (respuestaSeleccionada !== null || preguntasAleatorias.length === 0) return;
+    
+    setRespuestaSeleccionada(opcionIndex);
+    
+    // Mostrar si la respuesta es correcta o incorrecta
+    const esCorrecta = opcionIndex === preguntasAleatorias[preguntaActual].respuestaCorrecta;
+    if (esCorrecta) {
+      setPuntuacion(puntuacion + 1);
+      setEstadoQuimi('correcto');
+    } else {
+      setVidas(vidas - 1);
+      setEstadoQuimi('incorrecto');
+    }
+    
+    // Mostrar la explicación después de 1 segundo
     setTimeout(() => {
-      setMostrarExplicacion(false);
-      setRespuestaSeleccionada(null);
-      setEstadoQuimi(''); // Resetear estado de Quimi
+      setMostrarExplicacion(true);
       
-      if (vidas <= 1 || preguntaActual + 1 >= preguntas.length) {
-        setJuegoTerminado(true);
-      } else {
-        setPreguntaActual(preguntaActual + 1);
-        setTiempoRestante(15);
-      }
-    }, 5000);
-  }, 1000);
-};
+      // Avanzar a la siguiente pregunta después de 5 segundos en total
+      setTimeout(() => {
+        setMostrarExplicacion(false);
+        setRespuestaSeleccionada(null);
+        setEstadoQuimi(''); // Resetear estado de Quimi
+        
+        // Verificar si el juego debe terminar
+        const preguntaSiguiente = preguntaActual + 1;
+        
+        if (vidas <= 1 || preguntaSiguiente >= preguntasAleatorias.length) {
+          setJuegoTerminado(true);
+        } else {
+          setPreguntaActual(preguntaSiguiente);
+          setTiempoRestante(15);
+        }
+      }, 5000);
+    }, 1000);
+  };
 
   // Temporizador
   useEffect(() => {
-    if (juegoTerminado) return;
+    if (juegoTerminado || preguntasAleatorias.length === 0) return;
     
     const temporizador = setInterval(() => {
       if (tiempoRestante > 0) {
@@ -353,11 +411,14 @@ const manejarRespuesta = (opcionIndex) => {
     }, 1000);
 
     return () => clearInterval(temporizador);
-  }, [tiempoRestante, juegoTerminado]);
+  }, [tiempoRestante, juegoTerminado, preguntasAleatorias]);
 
-  
-
+  // Reiniciar el quiz
   const reiniciarQuiz = () => {
+    // Seleccionar nuevas preguntas aleatorias
+    const nuevasPreguntas = seleccionarPreguntasAleatorias(10);
+    setPreguntasAleatorias(nuevasPreguntas);
+    setTotalPreguntas(nuevasPreguntas.length);
     setPreguntaActual(0);
     setPuntuacion(0);
     setVidas(3);
@@ -365,10 +426,24 @@ const manejarRespuesta = (opcionIndex) => {
     setJuegoTerminado(false);
     setRespuestaSeleccionada(null);
     setMostrarExplicacion(false);
+    setPreguntasUsadas([]); // Reiniciar las preguntas usadas
   };
-  
+
+  // Si aún no se han cargado las preguntas
+  if (preguntasAleatorias.length === 0) {
+    return (
+      <div className="quiz-contenedor-rediseno">
+        <div className="cargando-preguntas">
+          <div className="spinner"></div>
+          <p>Cargando preguntas...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (juegoTerminado) {
     const esGanador = puntuacion >= 7;
+    const totalPreguntasJuego = preguntasAleatorias.length;
 
     return (
       <div className="quiz-contenedor-resultado">
@@ -377,11 +452,10 @@ const manejarRespuesta = (opcionIndex) => {
         <div className="resultado-contenedor">
           {esGanador ? (
             <div className="contenido-ganador">
-
               <div className="mensaje-quimi-burbuja">
                 <h4>¡Felicidades!</h4>
                 <p>
-                  Obtuviste {puntuacion}/{preguntas.length} puntos
+                  Obtuviste {puntuacion}/{totalPreguntasJuego} puntos
                 </p>
               </div>
               <img 
@@ -389,26 +463,22 @@ const manejarRespuesta = (opcionIndex) => {
                 alt="Quimi animando" 
                 className="quimi-resultado"
               />
-
-              {/* Botones */}
               <div className="botones-resultado">
                 <button className="btn-volver-juegos" onClick={reiniciarQuiz}>
-                  Intentar de nuevo
+                  Jugar con nuevas preguntas
                 </button>
                 <button className="btn-volver-juegos" onClick={onVolverAJuegos}>
                   Volver a juegos
                 </button>
               </div>
-          
             </div>
           ) : (
             <div className="contenido-perdedor">
-             
               <div className="mensaje-quimi-burbuja">
                 <h4>¡No te rindas!</h4>
                 <p>
-                  Solo obtuviste {puntuacion}/{preguntas.length} puntos,<br />
-                  pero la próxima te irá mejor 💪
+                  Obtuviste {puntuacion}/{totalPreguntasJuego} puntos,<br />
+                  ¡la próxima te irá mejor!
                 </p>
               </div>
               <img 
@@ -416,11 +486,9 @@ const manejarRespuesta = (opcionIndex) => {
                 alt="Quimi animando" 
                 className="quimi-resultado"
               />
-
-              {/* Botones */}
               <div className="botones-resultado">
                 <button className="btn-volver-juegos" onClick={reiniciarQuiz}>
-                  Intentar de nuevo
+                  Intentar con nuevas preguntas
                 </button>
                 <button className="btn-volver-juegos" onClick={onVolverAJuegos}>
                   Volver a juegos
@@ -431,15 +499,15 @@ const manejarRespuesta = (opcionIndex) => {
         </div>
       </div>
     );
-
   }
-return (
+
+  return (
     <div className="quiz-contenedor-rediseno">
       {/* Quiz Header */}
       <div className="quiz-header-rediseno">
         <div className="quiz-marcador">
           <div className="quiz-pregunta-indicador">
-            Pregunta {preguntaActual + 1} <span>de {preguntas.length}</span>
+            Pregunta {preguntaActual + 1} <span>de {preguntasAleatorias.length}</span>
           </div>
           <div className="quiz-puntuacion">
             <span className="icono-puntuacion">⚛</span>
@@ -477,24 +545,21 @@ return (
       {/* Current Question */}
       <div className="quiz-pregunta-rediseno">
         <div className="numero-pregunta">Pregunta {preguntaActual + 1}</div>
-        <h4>{preguntas[preguntaActual].pregunta}</h4>
+        <h4>{preguntasAleatorias[preguntaActual].pregunta}</h4>
       </div>
       
       {/* Answer Options */}
       <div className="quiz-opciones-rediseno">
-        {preguntas[preguntaActual].opciones.map((opcion, index) => {
+        {preguntasAleatorias[preguntaActual].opciones.map((opcion, index) => {
           let estado = '';
           if (respuestaSeleccionada !== null) {
-            // Solo mostrar si la opción actual es la seleccionada
             if (index === respuestaSeleccionada) {
-              // Verificar si la selección es correcta o incorrecta
-              if (index === preguntas[preguntaActual].respuestaCorrecta) {
+              if (index === preguntasAleatorias[preguntaActual].respuestaCorrecta) {
                 estado = 'correcta';
               } else {
                 estado = 'incorrecta';
               }
             }
-            // NO mostrar la respuesta correcta cuando se selecciona una incorrecta
           }
           
           return (
@@ -517,7 +582,7 @@ return (
         <div className="quiz-explicacion-rediseno">
           <div className="explicacion-contenido">
             <h5>Explicación:</h5>
-            <p>{preguntas[preguntaActual].explicacion}</p>
+            <p>{preguntasAleatorias[preguntaActual].explicacion}</p>
           </div>
         </div>
       )}
@@ -525,7 +590,10 @@ return (
       <QuimiOverlay 
         tipoJuego="quiz" 
         estadoJuego={estadoQuimi} 
-        datos={{ indicePregunta: preguntaActual }}
+        datos={{
+          preguntaActual: preguntasAleatorias[preguntaActual],
+          indicePregunta: preguntaActual
+        }}
         posicion="derecha"
       />
     </div>
@@ -772,7 +840,7 @@ const manejarMezcla = () => {
         tipoJuego="mezcla" 
         estadoJuego={estadoQuimi} 
         datos={datosQuimi}
-        posicion="izquierda" // Cambiado al lado izquierdo
+        posicion="izquierda"
       />
     </div>
   );

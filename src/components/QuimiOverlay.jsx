@@ -2,98 +2,96 @@
 import React, { useState, useEffect } from 'react';
 import './QuimiOverlay.css';
 
+// Versión simplificada con mensajes contextuales
 const QuimiOverlay = ({ tipoJuego, estadoJuego, datos, posicion = "derecha" }) => {
   const [mostrar, setMostrar] = useState(false);
   const [mensaje, setMensaje] = useState('');
   const [estadoQuimi, setEstadoQuimi] = useState('normal');
 
-  // Mensajes específicos para cada pregunta del quiz
-  const mensajesQuizCorrecto = [
-    "Correcto. Es el sistema de clasificación de los elementos.",
-    "Exacto. El número atómico corresponde al número de protones en el núcleo.",
-    "Correcto. Mendeléyev creó la tabla periódica moderna.",
-    "Muy bien. Los grupos contienen elementos con propiedades similares.",
-    "Exacto. Las filas horizontales se llaman períodos.",
-    "Correcto. El elemento con 11 protones (sodio), es un metal alcalino del Grupo 1, Periodo 3",
-    "Muy bien. Esas son propiedades características de los metales.",
-    "Correcto. Los átomos buscan la configuración de un gas noble.",
-    "Exacto. La electronegatividad aumenta hacia arriba y a la derecha.",
-    "Muy bien. El bromo tiene 7 electrones de valencia."
-  ];
-
-  const mensajesQuizIncorrecto = [
-    "¡Casi! La tabla solo clasifica elementos químicos.",
-    "¡Ánimo! El número atómico se define por los protones.",
-    "¡Sigue adelante! Mendeléyev es el padre de la tabla periódica.",
-    "¡No te rindas! Las propiedades similares se dan en el grupo.",
-    "¡Intenta otra vez! Las filas horizontales son períodos.",
-    "¡Ánimo! El sodio está en el Grupo 1, Período 3.",
-    "¡Casi lo tienes! Esas son propiedades metálicas.",
-    "¡No te desanimes! La regla del octeto sigue a los gases nobles.",
-    "¡Sigue practicando! La electronegatividad aumenta hacia el flúor.",
-    "¡Ánimo! El bromo tiene 7 electrones de valencia."
-  ];
-
-  const mensajesMezcla = {
-    exito: [
-      "¡Felicidades! Has descubierto un nuevo compuesto.",
-      "¡Increíble! Este compuesto es muy importante en la industria.",
-      "¡Excelente trabajo! Este compuesto tiene aplicaciones fascinantes."
-    ],
-    error: [
-      "¡Sigue intentando! La química requiere paciencia y experimentación.",
-      "¡No te desanimes! Hasta los grandes químicos cometían errores.",
-      "¡Intenta otra combinación! La práctica hace al maestro."
-    ]
-  };
-
-  // Determinar la posición según el tipo de juego
-  const obtenerPosicion = () => {
-    if (tipoJuego === 'mezcla') {
-      return 'izquierda';
-    } else if (tipoJuego === 'quiz') {
-      return 'derecha';
+  // Mensajes contextuales basados en palabras clave
+  const obtenerMensajeContextual = (preguntaTexto, esCorrecta) => {
+    const pregunta = preguntaTexto.toLowerCase();
+    
+    if (pregunta.includes('número atómico') || pregunta.includes('protones')) {
+      return esCorrecta 
+        ? "¡Correcto! El número atómico son los protones en el núcleo."
+        : "¡El número atómico (Z) corresponde a los protones!";
     }
-    return posicion; // Usar la posición por defecto si no coincide
+    else if (pregunta.includes('mendeléyev')) {
+      return esCorrecta
+        ? "¡Exacto! Mendeléyev es el padre de la tabla periódica."
+        : "¡Mendeléyev creó la primera tabla periódica en 1869!";
+    }
+    else if (pregunta.includes('grupo') || pregunta.includes('período')) {
+      return esCorrecta
+        ? "¡Muy bien! Conoces la organización de la tabla."
+        : "¡Recuerda: grupos son columnas, períodos son filas!";
+    }
+    else if (pregunta.includes('electronegatividad')) {
+      return esCorrecta
+        ? "¡Excelente! La electronegatividad aumenta hacia el flúor."
+        : "¡La electronegatividad aumenta de izquierda a derecha y de abajo hacia arriba!";
+    }
+    else if (pregunta.includes('metal') || pregunta.includes('propiedad')) {
+      return esCorrecta
+        ? "¡Correcto! Conoces las propiedades de los elementos."
+        : "¡Los metales son conductores, maleables y dúctiles!";
+    }
+    else if (pregunta.includes('electrones de valencia')) {
+      return esCorrecta
+        ? "¡Perfecto! Los electrones de valencia determinan la reactividad."
+        : "¡Los electrones de valencia están en la última capa!";
+    }
+    else if (pregunta.includes('octeto')) {
+      return esCorrecta
+        ? "¡Bien! Los átomos buscan la configuración de gas noble."
+        : "¡La regla del octeto busca estabilidad como los gases nobles!";
+    }
+    else {
+      // Mensaje genérico por defecto
+      return esCorrecta
+        ? "¡Respuesta correcta! ¡Buen trabajo!"
+        : "¡Sigue intentando! Aprenderás con cada intento.";
+    }
   };
-
-  const posicionActual = obtenerPosicion();
 
   useEffect(() => {
-    // Si no hay estadoJuego, ocultar
     if (!estadoJuego) {
       setMostrar(false);
       return;
     }
 
-    // Determinar mensaje según el tipo de juego y estado
     let nuevoMensaje = '';
     let nuevoEstado = 'normal';
 
     if (tipoJuego === 'quiz') {
-      if (estadoJuego === 'correcto') {
-        // Usar índice específico si está disponible en datos, o aleatorio
-        const indice = datos?.indicePregunta !== undefined ? datos.indicePregunta : Math.floor(Math.random() * mensajesQuizCorrecto.length);
-        nuevoMensaje = mensajesQuizCorrecto[indice % mensajesQuizCorrecto.length];
-        nuevoEstado = 'feliz';
-      } else if (estadoJuego === 'incorrecto') {
-        const indice = datos?.indicePregunta !== undefined ? datos.indicePregunta : Math.floor(Math.random() * mensajesQuizIncorrecto.length);
-        nuevoMensaje = mensajesQuizIncorrecto[indice % mensajesQuizIncorrecto.length];
-        nuevoEstado = 'triste';
-      }
-    } else if (tipoJuego === 'mezcla') {
-      if (estadoJuego === 'exito') {
-        nuevoMensaje = mensajesMezcla.exito[Math.floor(Math.random() * mensajesMezcla.exito.length)];
-        if (datos && datos.compuesto) {
-          nuevoMensaje += ` ${datos.compuesto.explicacion}`;
+      if (estadoJuego === 'correcto' || estadoJuego === 'incorrecto') {
+        const esCorrecta = estadoJuego === 'correcto';
+        
+        // Si tenemos datos de la pregunta, usar mensaje contextual
+        if (datos && datos.preguntaActual) {
+          nuevoMensaje = obtenerMensajeContextual(datos.preguntaActual.pregunta, esCorrecta);
+        } else {
+          // Mensaje genérico
+          nuevoMensaje = esCorrecta 
+            ? "¡Excelente! Respuesta correcta." 
+            : "¡Ánimo! Sigue practicando.";
         }
+        
+        nuevoEstado = esCorrecta ? 'feliz' : 'triste';
+      }
+    } 
+    // También necesitas manejar el caso para 'mezcla' si lo usas
+    else if (tipoJuego === 'mezcla') {
+      if (estadoJuego === 'exito') {
+        nuevoMensaje = "¡Felicidades! Has creado un compuesto correctamente.";
         nuevoEstado = 'alegre';
       } else if (estadoJuego === 'error') {
-        nuevoMensaje = mensajesMezcla.error[Math.floor(Math.random() * mensajesMezcla.error.length)];
+        nuevoMensaje = "¡Sigue intentando! La química requiere experimentación.";
         nuevoEstado = 'triste';
       }
     }
-
+    
     setMensaje(nuevoMensaje);
     setEstadoQuimi(nuevoEstado);
     setMostrar(true);
@@ -109,10 +107,10 @@ const QuimiOverlay = ({ tipoJuego, estadoJuego, datos, posicion = "derecha" }) =
   if (!mostrar) return null;
 
   return (
-    <div className={`quimi-overlay quimi-${posicionActual}`}>
-      <div className={`quimi-contenedor ${posicionActual === 'izquierda' ? 'quimi-izquierda' : 'quimi-derecha'}`}>
+    <div className={`quimi-overlay quimi-${posicion}`}>
+      <div className={`quimi-contenedor ${posicion === 'izquierda' ? 'quimi-izquierda' : 'quimi-derecha'}`}>
         {/* Colocamos la burbuja de texto primero */}
-        <div className={`quimi-burbuja ${posicionActual === 'izquierda' ? 'burbuja-izquierda' : 'burbuja-derecha'}`}>
+        <div className={`quimi-burbuja ${posicion === 'izquierda' ? 'burbuja-izquierda' : 'burbuja-derecha'}`}>
           <p>{mensaje}</p>
         </div>
         {/* Y la imagen de Quimi después */}
