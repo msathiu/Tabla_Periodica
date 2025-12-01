@@ -8,6 +8,7 @@ import MobileTable from './components/MobileTable';
 import logoMincyt from './assets/logo-mincyt.png';
 import Juegos from './components/Juegos';
 import munequitaImage from '/imagenes/animacion_bienvenida.png';
+import logoEsquina from './assets/logo-esquina.png';
 
 function App() {
   const tableRef = useRef(null);
@@ -92,7 +93,6 @@ function App() {
       <div className="loading-screen">
         <div className="loading-content">
           
-          
           <h1 className="loading-text">¡ÚNETE A LA AVENTURA CIENTÍFICA!</h1>
           
           <img 
@@ -100,11 +100,28 @@ function App() {
             alt="Muñequita de aventura" 
             className="munequita-imagen"
           />
-          
+
+          {/* Logo esquina inferior izquierda */}
+          <img 
+            src={logoEsquina}
+            alt="Logo esquina izquierda"
+            className="loading-logo-right"
+          />
+
+          {/* Logo MINCYT en esquina inferior derecha */}
+          <img 
+            src={logoMincyt}
+            alt="Logo MINCYT"
+            
+            className="loading-logo-left"
+          />
+
         </div>
       </div>
     );
   }
+
+
 
   if (error) {
     return (
@@ -193,6 +210,7 @@ function App() {
                   </div>
                 </div>
               )}
+              
             </div>
           ) : (
             <Juegos 
@@ -211,6 +229,13 @@ function App() {
           )}
         </main>
       </div>
+
+      <img 
+        src={logoEsquina} 
+        alt="Logo" 
+        className="logo-esquina-inferior"
+        
+      />
 
       {/* FOOTER FIJO - ESTRUCTURA CONSISTENTE */}
       <footer className="app-footer">

@@ -854,3 +854,89 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+
+/* Alternativa: logo dentro del contenedor de la tabla */
+.tabla-section {
+  position: relative;
+}
+
+.logo-esquina-inferior {
+  position: absolute;
+  bottom: -80px; /* Ajusta según la altura de tu footer */
+  right: 150px;
+  z-index: 10;
+  width: 100px;
+  height: auto;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  
+}
+
+.logo-esquina-inferior:hover {
+  opacity: 1;
+}
+
+/* Para la vista móvil */
+@media (max-width: 832px) {
+  .logo-esquina-inferior {
+    position: fixed;
+    bottom: 70px; /* Por encima del footer en móvil */
+    right: 10px;
+    width: 60px;
+  }
+}
+/* Pantalla de carga con altura fija */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loading-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* LOGO ESQUINA IZQUIERDA */
+.loading-logo-left {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 40px; /* <-- margen REAL desde ambos bordes */
+  width: 250px !important; 
+  opacity: 0.9;
+  z-index: 10000;
+}
+
+/* LOGO ESQUINA DERECHA */
+.loading-logo-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 30px; /* <-- margen REAL */
+  width: 100px;
+  opacity: 0.9;
+  z-index: 10000;
+}
+
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+  .loading-logo-esquina {
+    width: 60px;
+  }
+
+  .loading-logo-mincyt {
+    width: 80px;
+    right: 85px;
+  }
+}
