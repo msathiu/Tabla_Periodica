@@ -750,8 +750,8 @@ body {
 }
 
 .munequita-imagen {
-  width: 400px !important; /* Más grande */
-  height: 400p !important; /* Más grande */
+  width: 600px !important; /* Más grande */
+  height: 600px !important; /* Más grande */
   margin: 0 auto 30px;
   animation: flotar 6s ease-in-out infinite, latido 4s ease-in-out infinite; /* Más lento */
   filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
