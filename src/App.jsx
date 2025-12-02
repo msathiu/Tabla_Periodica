@@ -230,16 +230,17 @@ function App() {
         </main>
       </div>
 
-      <img 
+      
+
+      {/* FOOTER FIJO - ESTRUCTURA CONSISTENTE */}
+      <footer className="app-footer">
+        <div className="footer-content">
+        <img 
         src={logoEsquina} 
         alt="Logo" 
         className="logo-esquina-inferior"
         
       />
-
-      {/* FOOTER FIJO - ESTRUCTURA CONSISTENTE */}
-      <footer className="app-footer">
-        <div className="footer-content">
           <p>
             © {new Date().getFullYear()} Tabla Periódica Interactiva - MINCyT Venezuela | 
             Desarrollado por: Maeva Puente | 
